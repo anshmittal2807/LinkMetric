@@ -38,7 +38,8 @@ public class SecurityConfig {
                         // Public routes
                         .requestMatchers(
                                 "/home/**",
-                                "/auth/**"
+                                "/auth/**",
+                                "/signup"
                         )
                         .permitAll()
 
