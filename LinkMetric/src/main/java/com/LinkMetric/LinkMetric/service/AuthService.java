@@ -1,7 +1,6 @@
 package com.LinkMetric.LinkMetric.service;
 
 import com.LinkMetric.LinkMetric.model.AuthRequest;
-import com.LinkMetric.LinkMetric.model.User;
 import com.LinkMetric.LinkMetric.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class AuthService {
