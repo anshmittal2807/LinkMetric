@@ -1,0 +1,42 @@
+package com.LinkMetric.LinkMetric.service;
+
+import com.LinkMetric.LinkMetric.model.AuthRequest;
+import com.LinkMetric.LinkMetric.model.User;
+import com.LinkMetric.LinkMetric.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+@Service
+public class AuthService {
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private JwtService jwtService;
+
+    public Map<String , Object> handleLogin(AuthRequest authRequest){
+        Map<String , Object> response = new HashMap<>();
+
+        //if authentication fails then the spring automatically throws badCredentialException
+        Authentication authentication = authenticationManager.
+                authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUserName() , authRequest.getPassword()));
+
+
+        response.put("success" , true);
+            response.put("token" , jwtService.generateToken(authRequest.getUserName()));
+            return  response;
+
+    }
+
+}

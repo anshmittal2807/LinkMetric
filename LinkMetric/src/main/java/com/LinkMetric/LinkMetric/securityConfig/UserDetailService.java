@@ -1,12 +1,11 @@
-package com.LinkMetric.LinkMetric.service;
+package com.LinkMetric.LinkMetric.securityConfig;
 
 import com.LinkMetric.LinkMetric.model.User;
-import com.LinkMetric.LinkMetric.securityConfig.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import  com.LinkMetric.LinkMetric.repositories.userRepository;
+import com.LinkMetric.LinkMetric.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,7 +14,7 @@ import java.util.Optional;
 public class UserDetailService implements UserDetailsService {
 
     @Autowired
-    private userRepository userRepository;
+    private UserRepository userRepository;
 
 
     @Override
