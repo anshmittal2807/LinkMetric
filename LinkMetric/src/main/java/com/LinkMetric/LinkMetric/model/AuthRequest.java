@@ -12,7 +12,6 @@ public class AuthRequest {
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
              message = "Password must contain uppercase, lowercase, number, special character " +
                      "and be at least 8 characters long" )
-
     private String password;
 
     public String getUserName() {

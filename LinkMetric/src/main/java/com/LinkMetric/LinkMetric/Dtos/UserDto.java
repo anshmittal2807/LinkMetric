@@ -1,11 +1,14 @@
-package com.LinkMetric.LinkMetric.model;
+package com.LinkMetric.LinkMetric.Dtos;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
-@Entity
-public class User {
-
+public class UserDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
@@ -21,9 +24,9 @@ public class User {
     private String userName;
 
     @NotBlank(message = "Password can not be blank")
-//    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
-//            message = "Password must contain uppercase, lowercase, number, special character " +
-//                    "and be at least 8 characters long" )
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+            message = "Password must contain uppercase, lowercase, number, special character " +
+                    "and be at least 8 characters long" )
     private String password;
 
     public Integer getUserId() {

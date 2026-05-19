@@ -1,5 +1,6 @@
 package com.LinkMetric.LinkMetric.securityConfig;
 
+import com.LinkMetric.LinkMetric.Exception.UserNotFoundException;
 import com.LinkMetric.LinkMetric.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,10 +17,10 @@ public class UserDetailService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByUserName(username);
+    public UserDetails loadUserByUsername(String username) throws UserNotFoundException {
+        Optional<User> user = Optional.ofNullable(userRepository.findByUserName(username).orElseThrow(()
+                -> new UserNotFoundException("User with username :" + username + " not found")));
         UserDetailsImpl userDetails = new UserDetailsImpl(user.get());
         return userDetails;
     }

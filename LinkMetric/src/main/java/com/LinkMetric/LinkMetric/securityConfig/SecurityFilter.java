@@ -12,7 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @EnableWebSecurity
@@ -20,14 +20,19 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityFilter{
     @Autowired
     private UserDetailService userDetailService;
+
+    @Autowired
+    private JwtFilter jwtFilter;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable());
         http.sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.authorizeHttpRequests(auth ->
-                auth.requestMatchers("/login" ,"/signup").permitAll().anyRequest()
+                auth.requestMatchers("/login" ,"/signup" , "/home").permitAll().anyRequest()
                         .authenticated());
+
+        http.addFilterBefore(jwtFilter , UsernamePasswordAuthenticationFilter.class);
 
         http.authenticationProvider(daoAuthenticationProvider());
 
