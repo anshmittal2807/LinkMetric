@@ -40,6 +40,17 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ExceptionDto> UserExistsException(UserExistsException e){
         return new ResponseEntity<>(new ExceptionDto(e.getMessage() , HttpStatus.BAD_REQUEST.value()) , HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ExceptionDto> handleGenericException(Exception e){
+        e.printStackTrace();
+        return new ResponseEntity<>(
+                new ExceptionDto(
+                        "Something went wrong",
+                        HttpStatus.INTERNAL_SERVER_ERROR.value()
+                ),
+                HttpStatus.INTERNAL_SERVER_ERROR
+        );
+    }
 
 
 

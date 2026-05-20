@@ -11,17 +11,19 @@ public class Link {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer linkId;
 
+    @Column(length = 2048)
     private  String link;
 
     private String hash;
 
     @ManyToOne
+    @JoinColumn(name = "userId")
     private User owner;
 
     private LocalDateTime localDateTime;
 
-    public Link(Integer linkId, User owner, String hash, String link) {
-        this.linkId = linkId;
+    public Link( User owner, String hash, String link) {
+
         this.owner = owner;
         this.hash = hash;
         this.link = link;
