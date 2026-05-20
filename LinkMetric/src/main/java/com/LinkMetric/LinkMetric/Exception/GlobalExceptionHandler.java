@@ -37,7 +37,7 @@ public class GlobalExceptionHandler {
         );
     }
     @ExceptionHandler(UserExistsException.class)
-    public ResponseEntity<ExceptionDto> UserExistsException(UserNotFoundException e){
+    public ResponseEntity<ExceptionDto> UserExistsException(UserExistsException e){
         return new ResponseEntity<>(new ExceptionDto(e.getMessage() , HttpStatus.BAD_REQUEST.value()) , HttpStatus.BAD_REQUEST);
     }
 

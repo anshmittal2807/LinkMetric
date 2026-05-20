@@ -5,15 +5,21 @@ import com.LinkMetric.LinkMetric.Dtos.response.UserDto;
 import com.LinkMetric.LinkMetric.Exception.UserExistsException;
 import com.LinkMetric.LinkMetric.model.User;
 import com.LinkMetric.LinkMetric.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Service
 public class UserService {
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
     private PasswordEncoder passwordEncoder;
+
     public Map<String , Object> handleRegistration (RegisterRequest registerRequest){
 
             if(userRepository.existsByUserName(registerRequest.getUserName())){

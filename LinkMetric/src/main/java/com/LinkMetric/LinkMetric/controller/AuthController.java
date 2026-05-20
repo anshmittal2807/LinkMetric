@@ -3,6 +3,7 @@ package com.LinkMetric.LinkMetric.controller;
 import com.LinkMetric.LinkMetric.Dtos.request.AuthRequest;
 import com.LinkMetric.LinkMetric.Dtos.request.RegisterRequest;
 import com.LinkMetric.LinkMetric.repositories.UserRepository;
+import com.LinkMetric.LinkMetric.service.UserService;
 import com.LinkMetric.LinkMetric.service.auth.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,9 @@ public class AuthController {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private UserService userService;
+
 
     @GetMapping("/hello")
     public String hello (){
@@ -36,11 +37,12 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<Map<String , Object>> handleLogin(@Valid @RequestBody AuthRequest authRequest){
+        System.out.println("LoginAuth HIT");
         return  new ResponseEntity<>(authService.handleLogin(authRequest) , HttpStatus.OK);
     }
 
     @PostMapping("/signup")
     public ResponseEntity<?> handleRegisteration(@Valid @RequestBody RegisterRequest registerRequest){
-
+        return new ResponseEntity<>(userService.handleRegistration(registerRequest) , HttpStatus.OK);
     }
 }

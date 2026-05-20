@@ -27,17 +27,25 @@ public class AuthService {
 
         Map<String, Object> response = new HashMap<>();
 
+        System.out.println("all correct before authentication");
+
+
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         authRequest.getUserName(),
                         authRequest.getPassword()
                 )
         );
+            String username = authentication.getName();
+            System.out.println(username);
 
-        String username = authentication.getName();
+            response.put("success", true);
+            response.put("token", jwtService.generateToken(username));
 
-        response.put("success", true);
-        response.put("token", jwtService.generateToken(username));
+
+        System.out.println("Authentication done");
+
 
         return response;
     }
