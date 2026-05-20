@@ -1,17 +1,11 @@
-package com.LinkMetric.LinkMetric.Dtos;
+package com.LinkMetric.LinkMetric.Dtos.request;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-public class UserDto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userId;
+public class RegisterRequest {
 
     @Size(min = 3, max = 50, message = "Name must be between 3 and 20 characters")
     @NotBlank(message = "name can not be blank")
@@ -29,13 +23,6 @@ public class UserDto {
                     "and be at least 8 characters long" )
     private String password;
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
 
     public String getName() {
         return name;
@@ -68,4 +55,6 @@ public class UserDto {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

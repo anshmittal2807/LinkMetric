@@ -1,7 +1,7 @@
 package com.LinkMetric.LinkMetric.controller;
 
-import com.LinkMetric.LinkMetric.model.AuthRequest;
-import com.LinkMetric.LinkMetric.model.User;
+import com.LinkMetric.LinkMetric.Dtos.request.AuthRequest;
+import com.LinkMetric.LinkMetric.Dtos.request.RegisterRequest;
 import com.LinkMetric.LinkMetric.repositories.UserRepository;
 import com.LinkMetric.LinkMetric.service.auth.AuthService;
 import jakarta.validation.Valid;
@@ -33,14 +33,14 @@ public class AuthController {
         return "hello";
     }
 
+
     @PostMapping("/login")
     public ResponseEntity<Map<String , Object>> handleLogin(@Valid @RequestBody AuthRequest authRequest){
         return  new ResponseEntity<>(authService.handleLogin(authRequest) , HttpStatus.OK);
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<User> handleSignup(@Valid @RequestBody User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return  new ResponseEntity<>(userRepository.save(user) , HttpStatus.OK);
+    public ResponseEntity<?> handleRegisteration(@Valid @RequestBody RegisterRequest registerRequest){
+
     }
 }

@@ -1,4 +1,4 @@
-package com.LinkMetric.LinkMetric.Dtos;
+package com.LinkMetric.LinkMetric.Dtos.response;
 
 import java.time.LocalDateTime;
 

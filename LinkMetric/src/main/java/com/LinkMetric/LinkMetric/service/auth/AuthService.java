@@ -1,6 +1,6 @@
 package com.LinkMetric.LinkMetric.service.auth;
 
-import com.LinkMetric.LinkMetric.model.AuthRequest;
+import com.LinkMetric.LinkMetric.Dtos.request.AuthRequest;
 import com.LinkMetric.LinkMetric.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

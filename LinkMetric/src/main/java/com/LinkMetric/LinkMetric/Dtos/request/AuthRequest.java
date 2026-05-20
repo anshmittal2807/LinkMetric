@@ -1,4 +1,4 @@
-package com.LinkMetric.LinkMetric.model;
+package com.LinkMetric.LinkMetric.Dtos.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

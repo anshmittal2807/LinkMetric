@@ -1,6 +1,6 @@
 package com.LinkMetric.LinkMetric.Exception;
 
-import com.LinkMetric.LinkMetric.Dtos.ExceptionDto;
+import com.LinkMetric.LinkMetric.Dtos.response.ExceptionDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -35,6 +35,10 @@ public class GlobalExceptionHandler {
                 ),
                 HttpStatus.UNAUTHORIZED
         );
+    }
+    @ExceptionHandler(UserExistsException.class)
+    public ResponseEntity<ExceptionDto> UserExistsException(UserNotFoundException e){
+        return new ResponseEntity<>(new ExceptionDto(e.getMessage() , HttpStatus.BAD_REQUEST.value()) , HttpStatus.BAD_REQUEST);
     }
 
 
