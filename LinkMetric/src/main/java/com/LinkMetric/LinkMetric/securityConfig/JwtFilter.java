@@ -44,11 +44,13 @@ public class JwtFilter extends OncePerRequestFilter {
         // 1. Extract token safely
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
-
+            System.out.println(token);
             try {
                 username = jwtService.extractUserName(token);
+                System.out.println(username);
             } catch (Exception e) {
                 // invalid token → ignore authentication
+                System.out.println(e.getMessage());
                 filterChain.doFilter(request, response);
                 return;
             }
@@ -62,9 +64,10 @@ public class JwtFilter extends OncePerRequestFilter {
             UserDetails userDetails =
                     userDetailService.loadUserByUsername(username);
 
+            System.out.println(userDetails.getUsername());
             // 3. validate using YOUR service method
             if (jwtService.validateToken(username, userDetails, token)) {
-
+                System.out.println("Token  valid");
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(
                                 userDetails,

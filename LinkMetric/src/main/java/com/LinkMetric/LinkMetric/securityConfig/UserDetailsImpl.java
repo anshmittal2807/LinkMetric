@@ -49,4 +49,11 @@ public class UserDetailsImpl implements UserDetails {
     public boolean isAccountNonExpired() {
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "UserDetailsImpl{" +
+                "user=" + user +
+                '}';
+    }
 }

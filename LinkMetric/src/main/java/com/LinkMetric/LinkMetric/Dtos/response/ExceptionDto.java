@@ -7,11 +7,11 @@ public class ExceptionDto {
     private String message;
     private int status ;
     private LocalDateTime timeStamp;
-    private Boolean success;
+    private Boolean success = false;
 
     public ExceptionDto(String message, int status) {
         this.message = message;
-        status = status;
+        this.status = status;
         this.timeStamp = LocalDateTime.now();
         this.success = false;
     }

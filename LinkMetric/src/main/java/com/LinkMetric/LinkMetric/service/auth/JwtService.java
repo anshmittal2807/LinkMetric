@@ -29,11 +29,11 @@ public class JwtService {
     }
 
     private Claims extractClaims(String token){
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJwt(token).getBody();
+        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
     }
     public boolean validateToken(String username, UserDetails userDetails , String token) {
         //check if username is same for both
-        return  username.equals(userDetails.getUsername()) && isTokenExpired(token);
+        return  username.equals(userDetails.getUsername()) && !isTokenExpired(token);
         //check if token is expired or not
 
     }

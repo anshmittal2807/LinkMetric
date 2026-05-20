@@ -1,17 +1,21 @@
 package com.LinkMetric.LinkMetric.service;
 
 import com.LinkMetric.LinkMetric.Dtos.request.SaveLink;
+import com.LinkMetric.LinkMetric.Dtos.response.LinkDto;
 import com.LinkMetric.LinkMetric.model.Link;
 import com.LinkMetric.LinkMetric.model.User;
 import com.LinkMetric.LinkMetric.repositories.LinkRepository;
 import com.LinkMetric.LinkMetric.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+@Service
 public class LinkService {
 
     @Autowired
@@ -25,10 +29,10 @@ public class LinkService {
         String userName = auth.getName();
         Optional<User> byUserName = userRepository.findByUserName(userName);
         User user = byUserName.get();
-        String hash = UUID.randomUUID().toString().substring(0,9);
+        String hash = UUID.randomUUID().toString().substring(0,8);
 
         while (linkRepository.existsByHash(hash)){
-            hash = UUID.randomUUID().toString().substring(0,9);
+            hash = UUID.randomUUID().toString().substring(0,8);
         }
 
 
@@ -36,9 +40,8 @@ public class LinkService {
 
         response.put("success" , true);
         response.put("message" , "Link Shortened Successfully");
-        response.put("linkDetails" , savedLink);
-
+        response.put("linkDetails" , new LinkDto(savedLink.getLink() , savedLink.getLinkId() ,
+                savedLink.getLocalDateTime() , "https://linkme.com/" + savedLink.getHash()));
         return  response;
-
     }
 }

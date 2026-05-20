@@ -11,6 +11,14 @@ public class Link {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer linkId;
 
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
+    }
+
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
+    }
+
     @Column(length = 2048)
     private  String link;
 
