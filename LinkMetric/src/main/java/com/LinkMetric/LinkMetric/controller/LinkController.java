@@ -19,7 +19,7 @@ public class LinkController {
 
     @PostMapping("/saveLink")
     public Map<String , Object> savelink (@Valid @RequestBody SaveLink link , Authentication authentication){
-        System.out.println("Link controller HIT");
+        System.out.println("Link controller HITT");
         return linkService.saveLink(link , authentication);
     }
     
