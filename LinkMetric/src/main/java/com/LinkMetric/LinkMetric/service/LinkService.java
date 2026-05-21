@@ -25,16 +25,20 @@ public class LinkService {
     private UserRepository userRepository;
 
     public Map<String , Object> saveLink(SaveLink link , Authentication auth){
+
         Map<String , Object> response = new HashMap<>();
+
         String userName = auth.getName();
+
         Optional<User> byUserName = userRepository.findByUserName(userName);
+
         User user = byUserName.get();
+
         String hash = UUID.randomUUID().toString().substring(0,8);
 
         while (linkRepository.existsByHash(hash)){
             hash = UUID.randomUUID().toString().substring(0,8);
         }
-
 
         Link savedLink = linkRepository.save(new Link(user , hash , link.getLink()));
 
