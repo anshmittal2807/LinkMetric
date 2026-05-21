@@ -7,8 +7,12 @@ import com.LinkMetric.LinkMetric.model.User;
 import com.LinkMetric.LinkMetric.repositories.LinkRepository;
 import com.LinkMetric.LinkMetric.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,5 +51,25 @@ public class LinkService {
         response.put("linkDetails" , new LinkDto(savedLink.getLink() , savedLink.getLinkId() ,
                 savedLink.getLocalDateTime() , "https://linkme.com/" + savedLink.getHash()));
         return  response;
+    }
+
+    @RestController
+    @RequestMapping("/api/links")
+    public class LinkController {
+
+        private final LinkService linkService;
+
+        public LinkController(LinkService linkService) {
+            this.linkService = linkService;
+        }
+
+        public boolean deleteLink(Integer id) {
+            if (!linkRepository.existsById(id)) {
+                return false;
+            }
+
+            linkRepository.deleteById(id);
+            return true;
+        }
     }
 }
