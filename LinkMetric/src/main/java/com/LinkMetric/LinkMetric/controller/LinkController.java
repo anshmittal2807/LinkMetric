@@ -2,6 +2,7 @@ package com.LinkMetric.LinkMetric.controller;
 
 import com.LinkMetric.LinkMetric.Dtos.request.SaveLink;
 import com.LinkMetric.LinkMetric.service.LinkService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,16 +30,16 @@ public class LinkController {
     }
 
     @GetMapping("/{hashId}")
-    public ResponseEntity<Void> redirectUser(@PathVariable String hashId){
-        String url = linkService.redirectUser(hashId);
+    public ResponseEntity<Void> redirectUser(@PathVariable String hashId , HttpServletRequest request){
+        String url = linkService.redirectUser(hashId , request);
        return ResponseEntity
                 .status(HttpStatus.FOUND)
                 .location(
                         URI.create(url)
                 )
                 .build();
-
     }
+
 
 
 

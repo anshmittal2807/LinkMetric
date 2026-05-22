@@ -18,7 +18,7 @@ public class Log {
 
     private String ip;
 
-    Log(Link link , String  ip){
+    public Log(Link link, String ip){
         this.ip =  ip;
         this.link = link;
         this.clickTimeAndDate = LocalDateTime.now();

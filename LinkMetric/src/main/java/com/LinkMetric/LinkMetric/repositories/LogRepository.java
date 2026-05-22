@@ -1,4 +1,7 @@
 package com.LinkMetric.LinkMetric.repositories;
 
-public class LogRepository {
+import com.LinkMetric.LinkMetric.model.Log;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface LogRepository extends JpaRepository<Log , Long> {
 }

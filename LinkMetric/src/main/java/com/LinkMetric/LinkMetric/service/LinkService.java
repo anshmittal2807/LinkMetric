@@ -8,11 +8,10 @@ import com.LinkMetric.LinkMetric.model.User;
 import com.LinkMetric.LinkMetric.repositories.LinkRepository;
 import com.LinkMetric.LinkMetric.repositories.UserRepository;
 import com.LinkMetric.LinkMetric.util.LinkUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 
 @Service
@@ -20,6 +19,9 @@ public class LinkService {
 
     @Autowired
     private LinkRepository linkRepository;
+
+    @Autowired
+    private LogService logService;
 
     @Autowired
     private UserRepository userRepository;
@@ -61,13 +63,14 @@ public class LinkService {
     }
 
 
-    public String redirectUser(String hashId) {
+    public String redirectUser(String hashId , HttpServletRequest request) {
         Link link = linkRepository.findByHash(hashId);
-
         if (link == null) {
             throw new LinkNotFoundException("Link not found ");
         }
+        logService.addLog(request , link);
 
         return link.getLink();
     }
+
 }
