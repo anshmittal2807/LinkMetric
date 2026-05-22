@@ -51,6 +51,17 @@ public class GlobalExceptionHandler {
                 HttpStatus.INTERNAL_SERVER_ERROR
         );
     }
+    @ExceptionHandler(LinkNotFoundException.class)
+    public ResponseEntity<ExceptionDto> LinkNotFoundException(Exception e){
+        e.printStackTrace();
+        return new ResponseEntity<>(
+                new ExceptionDto(
+                        "Link Not Found",
+                        HttpStatus.NOT_FOUND.value()
+                ),
+                HttpStatus.NOT_FOUND
+        );
+    }
 
 
 

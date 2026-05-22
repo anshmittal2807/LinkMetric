@@ -11,4 +11,5 @@ import java.util.List;
 public interface LinkRepository extends JpaRepository<Link, Integer> {
     public boolean existsByHash(String hash);
     public List<Link> findAllByOwner(User owner);
+    public Link findByHash(String hash);
 }

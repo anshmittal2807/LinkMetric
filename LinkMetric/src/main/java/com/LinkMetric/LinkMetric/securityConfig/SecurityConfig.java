@@ -34,6 +34,7 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/signup").permitAll()
+                        .requestMatchers("/{hashId}").permitAll()
                         .anyRequest().authenticated()
                 )
 

@@ -2,6 +2,7 @@ package com.LinkMetric.LinkMetric.service;
 
 import com.LinkMetric.LinkMetric.Dtos.request.SaveLink;
 import com.LinkMetric.LinkMetric.Dtos.response.LinkDto;
+import com.LinkMetric.LinkMetric.Exception.LinkNotFoundException;
 import com.LinkMetric.LinkMetric.model.Link;
 import com.LinkMetric.LinkMetric.model.User;
 import com.LinkMetric.LinkMetric.repositories.LinkRepository;
@@ -60,4 +61,13 @@ public class LinkService {
     }
 
 
+    public String redirectUser(String hashId) {
+        Link link = linkRepository.findByHash(hashId);
+
+        if (link == null) {
+            throw new LinkNotFoundException("Link not found ");
+        }
+
+        return link.getLink();
+    }
 }

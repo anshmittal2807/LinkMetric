@@ -4,12 +4,12 @@ import com.LinkMetric.LinkMetric.Dtos.request.SaveLink;
 import com.LinkMetric.LinkMetric.service.LinkService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.Map;
 
 @RestController
@@ -26,6 +26,18 @@ public class LinkController {
     @GetMapping("/getAllLinks")
     public Map<String , Object> fetchAllLinks (Authentication authentication){
         return linkService.fetchAllLinks(authentication);
+    }
+
+    @GetMapping("/{hashId}")
+    public ResponseEntity<Void> redirectUser(@PathVariable String hashId){
+        String url = linkService.redirectUser(hashId);
+       return ResponseEntity
+                .status(HttpStatus.FOUND)
+                .location(
+                        URI.create(url)
+                )
+                .build();
+
     }
 
 
