@@ -11,12 +11,12 @@ public class Link {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer linkId;
 
-    public LocalDateTime getLocalDateTime() {
-        return localDateTime;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setLocalDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     @Column(length = 2048)
@@ -28,14 +28,14 @@ public class Link {
     @JoinColumn(name = "userId")
     private User owner;
 
-    private LocalDateTime localDateTime;
+    private LocalDateTime dateTime;
 
     public Link( User owner, String hash, String link) {
 
         this.owner = owner;
         this.hash = hash;
         this.link = link;
-        this.localDateTime = LocalDateTime.now();
+        this.dateTime = LocalDateTime.now();
     }
 
     public Link() {

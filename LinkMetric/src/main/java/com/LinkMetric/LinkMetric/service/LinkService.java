@@ -6,18 +6,13 @@ import com.LinkMetric.LinkMetric.model.Link;
 import com.LinkMetric.LinkMetric.model.User;
 import com.LinkMetric.LinkMetric.repositories.LinkRepository;
 import com.LinkMetric.LinkMetric.repositories.UserRepository;
+import com.LinkMetric.LinkMetric.util.LinkUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class LinkService {
@@ -49,27 +44,20 @@ public class LinkService {
         response.put("success" , true);
         response.put("message" , "Link Shortened Successfully");
         response.put("linkDetails" , new LinkDto(savedLink.getLink() , savedLink.getLinkId() ,
-                savedLink.getLocalDateTime() , "https://linkme.com/" + savedLink.getHash()));
+                savedLink.getDateTime() ,  savedLink.getHash()));
         return  response;
     }
 
-    @RestController
-    @RequestMapping("/api/links")
-    public class LinkController {
-
-        private final LinkService linkService;
-
-        public LinkController(LinkService linkService) {
-            this.linkService = linkService;
-        }
-
-        public boolean deleteLink(Integer id) {
-            if (!linkRepository.existsById(id)) {
-                return false;
-            }
-
-            linkRepository.deleteById(id);
-            return true;
-        }
+    public Map<String , Object> fetchAllLinks (Authentication authentication){
+        Map<String , Object> responseMap = new HashMap<>();
+        String userName = authentication.getName();
+        Optional<User> userOpt = userRepository.findByUserName(userName);
+        User user = userOpt.get();
+        List<Link> allLinks = linkRepository.findAllByOwner(user);
+        responseMap.put("success" , true);
+        responseMap.put("data" , LinkUtils.createLinkDtoList(allLinks));
+        return responseMap;
     }
+
+
 }

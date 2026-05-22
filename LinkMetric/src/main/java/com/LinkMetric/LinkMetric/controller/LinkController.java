@@ -5,6 +5,7 @@ import com.LinkMetric.LinkMetric.service.LinkService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,5 +23,11 @@ public class LinkController {
         System.out.println("Link controller HITT");
         return linkService.saveLink(link , authentication);
     }
-    
+    @GetMapping("/getAllLinks")
+    public Map<String , Object> fetchAllLinks (Authentication authentication){
+        return linkService.fetchAllLinks(authentication);
+    }
+
+
+
 }

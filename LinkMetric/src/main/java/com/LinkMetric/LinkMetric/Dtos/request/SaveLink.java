@@ -11,7 +11,7 @@ public class SaveLink {
     @Pattern(regexp = "^(https?:\\/\\/)[\\w\\-]+(\\.[\\w\\-]+)+[/#?]?.*$" , message = "Please use a valid URL")
     private  String link;
 
-    private LocalDateTime localDateTime;
+    private LocalDateTime dateTime;
 
     public String getLink() {
         return link;
@@ -19,7 +19,7 @@ public class SaveLink {
 
     public void setLink(String link) {
         this.link = link;
-        this.localDateTime = LocalDateTime.now();
+        this.dateTime = LocalDateTime.now();
 
     }
      SaveLink(){

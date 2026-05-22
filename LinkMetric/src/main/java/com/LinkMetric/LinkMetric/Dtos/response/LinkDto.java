@@ -6,7 +6,7 @@ public class LinkDto {
 
     private String orignalLink;
     private  String shortLink;
-    private LocalDateTime localDateTime;
+    private LocalDateTime dateTime;
     private Integer linkId;
 
     public String getOrignalLink() {
@@ -16,8 +16,8 @@ public class LinkDto {
     public LinkDto(String orignalLink, Integer linkId, LocalDateTime localDateTime, String shortLink) {
         this.orignalLink = orignalLink;
         this.linkId = linkId;
-        this.localDateTime = localDateTime;
-        this.shortLink = shortLink;
+        this.dateTime = localDateTime;
+        this.shortLink = "https://linkme.com/" + shortLink;
     }
 
     public void setOrignalLink(String orignalLink) {
@@ -32,12 +32,12 @@ public class LinkDto {
         this.shortLink = shortLink;
     }
 
-    public LocalDateTime getLocalDateTime() {
-        return localDateTime;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setLocalDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public Integer getLinkId() {
