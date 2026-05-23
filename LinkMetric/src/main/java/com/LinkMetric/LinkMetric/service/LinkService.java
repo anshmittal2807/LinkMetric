@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+
+import java.net.URISyntaxException;
 import java.util.*;
 
 @Service
@@ -63,7 +65,7 @@ public class LinkService {
     }
 
 
-    public String redirectUser(String hashId , HttpServletRequest request) {
+    public String redirectUser(String hashId , HttpServletRequest request) throws URISyntaxException {
         Link link = linkRepository.findByHash(hashId);
         if (link == null) {
             throw new LinkNotFoundException("Link not found ");

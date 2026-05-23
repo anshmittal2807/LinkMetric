@@ -18,10 +18,18 @@ public class Log {
 
     private String ip;
 
-    public Log(Link link, String ip){
+    private String referer;
+
+    public Log(Link link, String ip ,String refer){
         this.ip =  ip;
         this.link = link;
         this.clickTimeAndDate = LocalDateTime.now();
+        this.referer = refer;
+    }
+
+    @Override
+    public String toString() {
+        return "Ip = " + ip + " link = " + link +  " click time  = " + clickTimeAndDate + " referef = " + referer;
     }
 
 }

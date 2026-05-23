@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Map;
 
 @RestController
@@ -30,7 +31,7 @@ public class LinkController {
     }
 
     @GetMapping("/{hashId}")
-    public ResponseEntity<Void> redirectUser(@PathVariable String hashId , HttpServletRequest request){
+    public ResponseEntity<Void> redirectUser(@PathVariable String hashId , HttpServletRequest request) throws URISyntaxException {
         String url = linkService.redirectUser(hashId , request);
        return ResponseEntity
                 .status(HttpStatus.FOUND)
