@@ -1,6 +1,7 @@
 package com.LinkMetric.LinkMetric.model;
 
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDateTime;
 
@@ -30,12 +31,26 @@ public class Link {
 
     private LocalDateTime dateTime;
 
+
+    private Long totalClicks = 0L;
+
+
     public Link( User owner, String hash, String link) {
 
         this.owner = owner;
         this.hash = hash;
         this.link = link;
         this.dateTime = LocalDateTime.now();
+
+
+    }
+
+    public Long getTotalClicks() {
+        return totalClicks;
+    }
+
+    public void setTotalClicks(Long totalClicks) {
+        this.totalClicks = totalClicks;
     }
 
     public Link() {

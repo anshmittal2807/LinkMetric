@@ -6,9 +6,7 @@ import com.LinkMetric.LinkMetric.repositories.LogRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.net.URI;
-import java.net.URISyntaxException;
 
 @Service
 public class LogService {
@@ -34,6 +32,7 @@ public class LogService {
                     source = uri.getHost();
                 }
             }
+
 
         } catch (Exception e) {
             source = "UNKNOWN";

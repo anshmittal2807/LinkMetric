@@ -8,16 +8,26 @@ public class LinkDto {
     private  String shortLink;
     private LocalDateTime dateTime;
     private Integer linkId;
+    private Long totalClicks;
+
+    public Long getTotalClicks() {
+        return totalClicks;
+    }
+
+    public void setTotalClicks(Long totalClicks) {
+        this.totalClicks = totalClicks;
+    }
 
     public String getOrignalLink() {
         return orignalLink;
     }
 
-    public LinkDto(String orignalLink, Integer linkId, LocalDateTime localDateTime, String shortLink) {
+    public LinkDto(String orignalLink, Integer linkId, LocalDateTime localDateTime, String shortLink, Long totalClicks) {
         this.orignalLink = orignalLink;
         this.linkId = linkId;
         this.dateTime = localDateTime;
         this.shortLink = "https://linkme.com/" + shortLink;
+        this.totalClicks = totalClicks;
     }
 
     public void setOrignalLink(String orignalLink) {

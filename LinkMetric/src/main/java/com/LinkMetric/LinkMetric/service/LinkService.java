@@ -49,7 +49,7 @@ public class LinkService {
         response.put("success" , true);
         response.put("message" , "Link Shortened Successfully");
         response.put("linkDetails" , new LinkDto(savedLink.getLink() , savedLink.getLinkId() ,
-                savedLink.getDateTime() ,  savedLink.getHash()));
+                savedLink.getDateTime() ,  savedLink.getHash(), savedLink.getTotalClicks()));
         return  response;
     }
 
@@ -70,8 +70,10 @@ public class LinkService {
         if (link == null) {
             throw new LinkNotFoundException("Link not found ");
         }
-        logService.addLog(request , link);
 
+        logService.addLog(request , link);
+        link.setTotalClicks(link.getTotalClicks() + 1);
+        linkRepository.save(link);
         return link.getLink();
     }
 
