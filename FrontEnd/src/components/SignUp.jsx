@@ -1,127 +1,43 @@
-import React, { use, useState } from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import FormInput from './FormInput'
+import { ArrowRight, LockKeyhole, Mail, UserRound } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
-const SignUp = () => {
-
-
-
+function Signup() {
   return (
-    <div className="antialiased min-h-screen flex items-center justify-center p-4 bg-white text-slate-900">
-      <div className="w-full max-w-[400px]">
-
-        {/* Header */}
-        <div className="flex flex-col items-center mb-10">
-          <div className="flex items-center gap-2 mb-6">
-            <span className="material-symbols-outlined text-blue-700 text-3xl">
-              account_balance_wallet
-            </span>
-            <span className="text-xl font-semibold tracking-tight">
-              ExpenseTracker
-            </span>
+    <div className="flex flex-1 items-center justify-center px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+      <div className="w-full max-w-md rounded-3xl border border-[#c3c6d7] bg-white/90 px-4 py-6 shadow-[0_18px_40px_-24px_rgba(15,23,42,0.45)] backdrop-blur-sm sm:p-8">
+        <div className="mb-6 flex flex-col items-center gap-3 text-center">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#2563eb]/10 text-[#2563eb]">
+            <UserRound className="h-6 w-6" />
           </div>
-
-          <h1 className="text-2xl font-bold text-gray-900">
-            Create your account
-          </h1>
-          <p className="text-slate-500 mt-2">
-            Start managing your Links simply
-          </p>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0053db]">Link Metric</p>
+          <h1 className="text-3xl font-semibold tracking-tight text-[#0b1c30] sm:text-4xl">Create your account</h1>
+          <h3 className="text-sm text-[#434655]">Start optimizing your links today.</h3>
         </div>
 
-        {/* Form */}
-        <form className="space-y-5" onSubmit={handleSubmit}>
 
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium mb-1.5">
-              Full Name
-            </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              placeholder="Jane Doe"
-              required
-              className="w-full h-11 px-3.5 border rounded"
-            />
-          </div>
+        <form action="POST" method="POST" className="flex w-full flex-col gap-4">
+          <FormInput id="Name" label="Full Name" placeholder="Name" icon={UserRound} />
+          <FormInput id="Username" label="Username" placeholder="Username" icon={UserRound} />
+          <FormInput id="Email" label="Email" type="email" placeholder="Email" icon={Mail} />
+          <FormInput id="Password" label="Password" type="password" placeholder="Password" icon={LockKeyhole} />
 
-          <div>
-            <label htmlFor="username" className="block text-sm font-medium mb-1.5">
-              Username
-            </label>
-            <input
-              id="username"
-              name="userName"
-              type="text"
-              placeholder="jane_doe"
-              required
-              className="w-full h-11 px-3.5 border rounded"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium mb-1.5">
-              Email address
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="jane@example.com"
-              required
-              className="w-full h-11 px-3.5 border rounded"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium mb-1.5">
-              Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              placeholder="••••••••"
-              required
-              className="w-full h-11 px-3.5 border rounded"
-            />
-            <p className="text-xs text-slate-400 mt-2">
-              Must be at least 8 characters long.
-            </p>
-          </div>
-
-         
-
-          {success && (
-            <p className="text-green-600 text-sm font-medium">
-              {success}
-            </p>
-          )}
-
-          <button
-            type="submit"
-            className="w-full h-11 bg-blue-700 hover:bg-blue-800 text-white font-semibold rounded"
-          >
-            Register Account
+          <button type="submit" className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-[#2563eb] px-4 py-3 font-semibold text-white shadow-sm shadow-blue-200/70 transition hover:bg-[#004ac6] hover:shadow-md">
+            <span>Register Now</span>
+            <ArrowRight className="h-4 w-4" />
           </button>
 
-        </form>
-
-        <div className="mt-10 text-center">
-          <p className="text-gray-500 dark:text-gray-400 text-sm">
-            Aldready a member?
-            <Link
-              to="/login"
-              className="text-primary font-bold hover:text-blue-700 ml-1"
-            >
+          <p className="text-center text-sm text-[#434655]">
+            Already have an account?{' '}
+            <Link to="/login" className="font-semibold text-[#004ac6] hover:text-[#2563eb]">
               Login
             </Link>
           </p>
-        </div>
-
+        </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default Signup

@@ -3,3 +3,15 @@
 * {
     font-family: 'Geist Text', sans-serif;
 }
+
+/* Global branded background and text color moved here so App.jsx remains unstyled */
+body {
+    background-color: #f8f9ff;
+    color: #0b1c30;
+    min-height: 100vh;
+    margin: 0;
+}
+
+main {
+    min-height: calc(100vh - 4rem); /* reserve header space (h-16 = 4rem) */
+}

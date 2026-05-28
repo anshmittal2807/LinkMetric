@@ -1,11 +1,16 @@
 import Login from '../components/Login'
 import LoginHeader from '../components/LoginHeader'
 import { LogIn, ShieldCheck, TrendingUp } from 'lucide-react'
-import loginImage from '../assets/signupPageimg.png'
+import{motion} from 'motion/react'
 
 function LoginPage() {
   return (
-    <div className="min-h-screen w-full bg-[#f8f9ff]">
+    <motion.div 
+     initial={{ y: -16, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      
+      transition = {{duration:0.6 , ease: 'easeOut'}}
+      className="min-h-screen w-full bg-[#f8f9ff]">
       <LoginHeader />
 
       <div className="flex min-h-[calc(100vh-4.5rem)] flex-col lg:flex-row">
@@ -37,15 +42,6 @@ function LoginPage() {
                 <p className="mt-1 text-sm leading-6 text-[#434655]">Get back to tracking clicks, views, and conversions without extra steps.</p>
               </div>
             </div>
-
-            <div className="relative w-full overflow-hidden rounded-3xl bg-white/70 ring-1 ring-[#d8def0]/70">
-              <img src={loginImage} alt="LinkMetric dashboard preview" className="h-64 w-full object-cover object-center xl:h-72" />
-              <img
-                src="/favicon.svg"
-                alt="LinkMetric mark"
-                className="absolute right-4 top-4 h-10 w-10 rounded-full bg-white p-1.5 shadow-[0_10px_24px_-14px_rgba(15,23,42,0.5)]"
-              />
-            </div>
           </div>
         </div>
 
@@ -53,7 +49,7 @@ function LoginPage() {
           <Login />
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
