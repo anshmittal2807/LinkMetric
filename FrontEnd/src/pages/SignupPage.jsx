@@ -4,8 +4,12 @@ import { Activity } from "lucide-react";
 import { BadgeCheck } from "lucide-react";
 import signupImage from '../assets/signupPageimg.png'
 import { motion } from 'motion/react'
+import {handleRegister} from '../services/handleRegister'
+
 
 function SignupPage() {
+
+  
   return (
 <motion.div
   initial={{ y: -24, opacity: 0 }}

@@ -3,12 +3,14 @@ import LoginHeader from '../components/LoginHeader'
 import { LogIn, ShieldCheck, TrendingUp } from 'lucide-react'
 import{motion} from 'motion/react'
 
+
 function LoginPage() {
+
   return (
     <motion.div 
-     initial={{ y: -16, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      
+     initial={{ x: -16, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+
       transition = {{duration:0.6 , ease: 'easeOut'}}
       className="min-h-screen w-full bg-[#f8f9ff]">
       <LoginHeader />
