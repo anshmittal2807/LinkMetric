@@ -23,11 +23,11 @@ public class UserService {
     public Map<String , Object> handleRegistration (RegisterRequest registerRequest){
 
             if(userRepository.existsByUserName(registerRequest.getUserName())){
-                throw new UserExistsException("User aldready with the same userName");
+                throw new UserExistsException("User aldready exists with the same userName");
             }
 
             if( userRepository.existsByEmail(registerRequest.getEmail())) {
-                throw new UserExistsException("User aldready with the same Email");
+                throw new UserExistsException("User aldready exists with the same Email");
             }
 
             User user = new User(registerRequest.getName()
