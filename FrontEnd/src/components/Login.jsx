@@ -3,6 +3,7 @@ import FormInput from './FormInput'
 import { ArrowRight, LockKeyhole, Mail, ShieldCheck } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { login } from '../services/authService'
+import { validateUsername, validatePassword } from '../services/regexValidator'
 
 function Login() {
   const [form, setForm] = useState({ userName: '', password: '' })
@@ -10,9 +11,10 @@ function Login() {
   const [loading, setLoading] = useState(false)
 
   const validate = () => {
-    const usernameRegex = /^[a-zA-Z0-9_]{3,}$/
-    if (!usernameRegex.test(form.username)) return 'Username must be at least 3 characters (letters, numbers, underscore)'
-    if (!form.password || form.password.length < 6) return 'Password must be at least 6 characters'
+    const uvalid = validateUsername(form.userName)
+    if (!uvalid) return 'Username must be at least 3 characters (letters, numbers, underscore)'
+    const pvalid = validatePassword(form.password)
+    if (!pvalid) return 'Password must be at least 8 characters, include upper/lowercase, number and special char'
     return null
   }
 
@@ -50,7 +52,7 @@ function Login() {
         </div>
 
         <form action="POST" method="POST" className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
-          <FormInput id="username" name="username" label="Username" placeholder="Username" icon={Mail} value={form.userName} onChange={(e) => setForm({ ...form, userName: e.target.value })} />
+          <FormInput id="userName" name="userName" label="Username" placeholder="Username" icon={Mail} value={form.userName} onChange={(e) => setForm({ ...form, userName: e.target.value })} />
           <FormInput id="password" name="password" label="Password" type="password" placeholder="Enter your password" icon={LockKeyhole} value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
 
           <div className="flex items-center justify-between gap-3 text-sm text-[#434655]">

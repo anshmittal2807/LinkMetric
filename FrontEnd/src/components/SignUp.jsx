@@ -12,7 +12,7 @@ function Signup() {
     userName : '',
     email : '',
     password : ''
-  })
+  });
 
   const[error , setError] = useState(false)
   const[errorMessage , setErrorMessage] = useState('')

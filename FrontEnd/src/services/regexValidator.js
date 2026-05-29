@@ -1,19 +1,19 @@
- const validateEmail = (email) => {
+ export const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }   
 
- const validatePassword = (password) => {
+ export const validatePassword = (password) => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return passwordRegex.test(password);
 }
 
- const validateUsername = (username) => {
+ export const validateUsername = (username) => {
     const usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
     return usernameRegex.test(username);
 }
 
- const validateName = (name) => {
+ export const validateName = (name) => {
     const nameRegex = /^[a-zA-Z\s]+$/;
     return nameRegex.test(name);
 }   

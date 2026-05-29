@@ -6,9 +6,12 @@ function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <UserContextProvider>
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<LoginPage />} />
+        </UserContextProvider>
+
+        <Route path="*" element={<Navigate to="/signup" replace />} />
       </Routes>
     </BrowserRouter>
   )
