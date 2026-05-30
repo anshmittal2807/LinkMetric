@@ -1,7 +1,8 @@
 import React from 'react'
-import { Link2, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
+import BrandMark from './BrandMark'
 
 
 function SignupHeader() {
@@ -13,16 +14,8 @@ function SignupHeader() {
     >
 
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#2563eb]/10 text-[#2563eb] shadow-sm shadow-blue-100">
-            <Link2 className="h-5 w-5" />
-          </div>
-
-          <div className="leading-tight">
-            <h1 className="text-lg font-semibold tracking-tight text-[#0b1c30]">LinkMetric</h1>
-            <p className="text-xs text-[#5b6275]">Link smarter. Grow faster.</p>
-          </div>
-        </div>
+        <BrandMark
+        />
 
         <div className="flex items-center gap-3 text-sm text-[#434655]">
           <span className="hidden sm:inline">Already have an account?</span>

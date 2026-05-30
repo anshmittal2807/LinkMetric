@@ -52,10 +52,10 @@ function Signup() {
 
 
         <form action="POST" method="POST" className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
-          <FormInput id="Name"  name="name" label="Full Name" placeholder="Name" icon={UserRound} value={formData.name} onChange = {(e)  => { setFormData({...formData, name: e.target.value}) }} />
-          <FormInput id="Username"  name="username" label="Username" placeholder="Username" icon={UserRound} value={formData.userName} onChange = {(e) => { setFormData({...formData, userName: e.target.value}) }} />
-          <FormInput id="Email"  name="email" label="Email" type="email" placeholder="Email" icon={Mail} value={formData.email} onChange = {(e) => { setFormData({...formData, email: e.target.value}) }} />
-          <FormInput id="Password" name="password"  label="Password" type="password" placeholder="Password" icon={LockKeyhole} value={formData.password} onChange = {(e)  => { setFormData({...formData, password: e.target.value}) }} />
+          <FormInput id="name" name="name" label="Full Name" placeholder="Name" icon={UserRound} value={formData.name} onChange={(e) => { setFormData({ ...formData, name: e.target.value }) }} />
+          <FormInput id="userName" name="userName" label="Username" placeholder="Username" icon={UserRound} value={formData.userName} onChange={(e) => { setFormData({ ...formData, userName: e.target.value }) }} />
+          <FormInput id="email" name="email" label="Email" type="email" placeholder="Email" icon={Mail} value={formData.email} onChange={(e) => { setFormData({ ...formData, email: e.target.value }) }} />
+          <FormInput id="password" name="password" label="Password" type="password" placeholder="Password" icon={LockKeyhole} value={formData.password} onChange={(e) => { setFormData({ ...formData, password: e.target.value }) }} />
           
           <button type="submit" className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-[#2563eb] px-4 py-3 font-semibold text-white shadow-sm shadow-blue-200/70 transition hover:bg-[#004ac6] hover:shadow-md">
             <span>Register Now</span>
