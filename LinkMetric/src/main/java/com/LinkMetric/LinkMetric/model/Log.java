@@ -11,14 +11,14 @@ public class Log {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long logId;
 
-    private LocalDateTime clickTimeAndDate;
+    private final LocalDateTime clickTimeAndDate;
 
     @ManyToOne
     private Link link;
 
     private String ip;
 
-    private String referer;
+    private final String referer;
 
     public Log(Link link, String ip ,String refer){
         this.ip =  ip;
