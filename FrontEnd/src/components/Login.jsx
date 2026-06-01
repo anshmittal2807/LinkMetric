@@ -32,6 +32,7 @@ function Login() {
       const data = await login(form)
       // `login` already logs the token; you can also access it here
       console.log('Login response:', data)
+      window.localStorage.setItem('token', data.token) // Store token for future use
     } catch (err) {
       setError(err.message || 'Login failed')
     } finally {
