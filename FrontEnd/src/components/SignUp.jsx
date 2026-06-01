@@ -30,6 +30,8 @@ function Signup() {
       const data  = await handleRegister(formData);
       console.log('Registration successful:', data);
       setError(false);
+            window.location.href = '/login' // Redirect to dashboard after successful login
+
       setErrorMessage('');
     } catch (error) {
       setError(true);

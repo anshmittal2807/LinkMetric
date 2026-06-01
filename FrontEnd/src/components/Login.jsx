@@ -33,6 +33,7 @@ function Login() {
       // `login` already logs the token; you can also access it here
       console.log('Login response:', data)
       window.localStorage.setItem('token', data.token) // Store token for future use
+      window.location.href = '/' // Redirect to dashboard after successful login
     } catch (err) {
       setError(err.message || 'Login failed')
     } finally {
