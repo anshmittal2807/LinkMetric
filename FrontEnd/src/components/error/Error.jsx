@@ -1,6 +1,7 @@
 import React from 'react'
 import { useRouteError, useNavigate, Link } from 'react-router-dom'
 import { AlertTriangle } from 'lucide-react'
+import {motion} from 'framer-motion'
 
 const Error = () => {
     const error = useRouteError()
@@ -11,13 +12,26 @@ const Error = () => {
     const message = error?.statusText || error?.message || 'Something went wrong.'
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white via-[#f3f7ff] to-[#eef4ff] px-6">
+        <div className="min-h-screen flex items-center justify-center bg-linear-to-b from-white via-[#f3f7ff] to-[#eef4ff] px-6">
             <div className="max-w-3xl w-full">
                 <div className="rounded-2xl border border-[#e6ecff] bg-white p-8 shadow-lg">
                     <div className="flex items-start gap-6">
-                        <div className="rounded-full bg-[#2563eb]/10 p-4 text-[#2563eb]">
+                        <motion.div 
+                        animate = {
+                            {
+                                y :[-10 , 10,-10],
+                                }
+                        }
+                            transition = {
+                                {
+                                    duration : 1.5,
+                                    repeat : Infinity,
+                                    ease: 'easeInOut'
+                                }}
+
+                        className="rounded-full bg-[#2563eb]/10 p-4 text-[#2563eb]">
                             <AlertTriangle className="h-8 w-8" />
-                        </div>
+                        </motion.div>
 
                         <div className="flex-1">
                             <h1 className="text-3xl font-bold text-[#0b1c30]">Unexpected error</h1>
@@ -51,11 +65,7 @@ const Error = () => {
                     </div>
                 </div>
 
-                <div className="mt-6 text-center text-sm text-[#6b7280]">
-                    <p>
-                        If the problem persists, contact <a href="mailto:support@linkmetric.example" className="font-semibold text-[#2563eb]">support</a> and include the error details above.
-                    </p>
-                </div>
+               
             </div>
         </div>
     )

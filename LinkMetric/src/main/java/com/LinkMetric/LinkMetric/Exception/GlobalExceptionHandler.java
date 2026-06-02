@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
                 .get(0)
                 .getDefaultMessage() , HttpStatus.BAD_REQUEST.value()) , HttpStatus.BAD_REQUEST);
     }
-    
+
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ExceptionDto> handleBadCredentials(
             BadCredentialsException e){
