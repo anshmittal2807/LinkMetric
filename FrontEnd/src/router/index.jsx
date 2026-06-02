@@ -3,13 +3,20 @@ import UserContextProvider from '../context/UserContextProvider'
 import HomePage from '../pages/HomePage'
 import SignupPage from '../pages/SignupPage'
 import LoginPage from '../pages/LoginPage'
-
+import DashboardPage from '../pages/DashBoardPage'
+import Error from '../components/error/Error'
 
 
 const router  = createBrowserRouter([
   {
     path : '/',
-    element : <HomePage />
+    element : <UserContextProvider><HomePage /></UserContextProvider>,
+    errorElement: <Error />
+  },
+  {
+    path: '/dashboard',
+    element: <UserContextProvider><DashboardPage /></UserContextProvider>,
+    errorElement: <Error />
   },
   {
     path : '/signup', 
@@ -17,12 +24,9 @@ const router  = createBrowserRouter([
   },
   { 
     path : '/login',
-    element : <LoginPage />
-  },
-  {
-    path : '*',
-    element : <Navigate to='/' replace />
-  }
+
+    element : <UserContextProvider><LoginPage /></UserContextProvider>
+  }  
 ])
 
 

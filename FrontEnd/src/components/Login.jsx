@@ -1,14 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import FormInput from './FormInput'
 import { ArrowRight, LockKeyhole, Mail, ShieldCheck } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { login } from '../services/authService'
 import { validateUsername, validatePassword } from '../services/regexValidator'
+import UserContext from '../context/UserContext'
 
 function Login() {
   const [form, setForm] = useState({ userName: '', password: '' })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const { user, setUser } = useContext(UserContext)
+
 
   const validate = () => {
     const uvalid = validateUsername(form.userName)
@@ -17,6 +20,7 @@ function Login() {
     if (!pvalid) return 'Password must be at least 8 characters, include upper/lowercase, number and special char'
     return null
   }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -32,6 +36,7 @@ function Login() {
       const data = await login(form)
       // `login` already logs the token; you can also access it here
       console.log('Login response:', data)
+      setUser(data.user) // Update user context with logged-in user info
       window.localStorage.setItem('token', data.token) // Store token for future use
       window.location.href = '/' // Redirect to dashboard after successful login
     } catch (err) {
@@ -80,7 +85,7 @@ function Login() {
 
           <p className="text-center text-sm text-[#434655]">
             Don’t have an account?{' '}
-            <Link to="/" className="font-semibold text-[#004ac6] hover:text-[#2563eb]">
+            <Link to="/signup" className="font-semibold text-[#004ac6] hover:text-[#2563eb]">
               Sign up
             </Link>
           </p>
