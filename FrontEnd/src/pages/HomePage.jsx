@@ -6,6 +6,8 @@ import LandingFooter from '../components/landing/LandingFooter'
 import { motion } from 'motion/react'
 
 function HomePage() {
+  
+
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#f8f9ff] text-[#0b1c30]">
       <motion.div
@@ -13,7 +15,7 @@ function HomePage() {
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.55, ease: 'easeOut' }}
       >
-        <LandingHeader />
+        <LandingHeader  />
       </motion.div>
       <main>
         <motion.div
