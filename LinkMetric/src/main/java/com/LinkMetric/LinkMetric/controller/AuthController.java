@@ -5,6 +5,7 @@ import com.LinkMetric.LinkMetric.Dtos.request.RegisterRequest;
 import com.LinkMetric.LinkMetric.repositories.UserRepository;
 import com.LinkMetric.LinkMetric.service.UserService;
 import com.LinkMetric.LinkMetric.service.auth.AuthService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,9 +36,9 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String , Object>> handleLogin(@Valid @RequestBody AuthRequest authRequest){
+    public ResponseEntity<Map<String , Object>> handleLogin(@Valid @RequestBody AuthRequest authRequest , HttpServletResponse request){
         System.out.println("LoginAuth HIT");
-        return  new ResponseEntity<>(authService.handleLogin(authRequest) , HttpStatus.OK);
+        return  new ResponseEntity<>(authService.handleLogin(authRequest , request) , HttpStatus.OK);
     }
 
     @PostMapping("/signup")

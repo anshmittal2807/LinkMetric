@@ -3,6 +3,7 @@ package com.LinkMetric.LinkMetric.securityConfig;
 import com.LinkMetric.LinkMetric.service.auth.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,10 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain)
-            throws ServletException, IOException {
+            throws ServletException, IOException
+
+    {
+
         String path = request.getServletPath();
 
         if(path.equals("/login") || path.equals("/signup")){
@@ -36,21 +40,24 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
-        String authHeader = request.getHeader("Authorization");
-
         String token = null;
         String username = null;
 
-        // 1. Extract token safely
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            token = authHeader.substring(7);
-            System.out.println(token);
+        Cookie[] cookies = request.getCookies();
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("token".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+
+        if (token != null) {
             try {
                 username = jwtService.extractUserName(token);
-                System.out.println(username);
             } catch (Exception e) {
-                // invalid token → ignore authentication
-                System.out.println(e.getMessage());
                 filterChain.doFilter(request, response);
                 return;
             }
