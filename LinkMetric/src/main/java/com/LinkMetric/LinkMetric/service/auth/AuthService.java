@@ -3,7 +3,6 @@ package com.LinkMetric.LinkMetric.service.auth;
 import com.LinkMetric.LinkMetric.Dtos.request.AuthRequest;
 import com.LinkMetric.LinkMetric.repositories.UserRepository;
 import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -53,7 +52,7 @@ public class AuthService {
 
         return response;
     }
-    public Map<String, Object> handleLogout(AuthRequest authRequest , HttpServletResponse response , HttpServletRequest request) {
+    public Map<String, Object> handleLogout( HttpServletResponse response) {
     Map<String  , Object> map = new HashMap<>();
         Cookie cookie = new Cookie("token", null);
         cookie.setHttpOnly(true);

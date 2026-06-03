@@ -20,17 +20,17 @@ public class LinkController {
     @Autowired
     private LinkService linkService;
 
-    @PostMapping("/saveLink")
+    @PostMapping("/link/saveLink")
     public Map<String , Object> savelink (@Valid @RequestBody SaveLink link , Authentication authentication){
         System.out.println("Link controller HITT");
         return linkService.saveLink(link , authentication);
     }
-    @GetMapping("/getAllLinks")
+    @GetMapping("/link/getAllLinks")
     public Map<String , Object> fetchAllLinks (Authentication authentication){
         return linkService.fetchAllLinks(authentication);
     }
 
-    @GetMapping("/{hashId}")
+    @GetMapping("/link/{hashId}")
     public ResponseEntity<Void> redirectUser(@PathVariable String hashId , HttpServletRequest request) throws URISyntaxException {
         String url = linkService.redirectUser(hashId , request);
        return ResponseEntity

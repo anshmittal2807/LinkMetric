@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,5 +45,11 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> handleRegisteration(@Valid @RequestBody RegisterRequest registerRequest){
         return new ResponseEntity<>(userService.handleRegistration(registerRequest) , HttpStatus.OK);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> handleLogout( HttpServletResponse response){
+        System.out.println("logout controller HIT");
+        return new ResponseEntity<>(authService.handleLogout( response) , HttpStatus.OK);
     }
 }
