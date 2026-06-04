@@ -52,4 +52,9 @@ public class AuthController {
         System.out.println("logout controller HIT");
         return new ResponseEntity<>(authService.handleLogout( response) , HttpStatus.OK);
     }
+
+    @GetMapping("/checkAuth")
+    public ResponseEntity<?> me(Authentication authentication) {
+        return  new ResponseEntity<>(authService.checkAuth(authentication) , HttpStatus.OK);
+    }
 }

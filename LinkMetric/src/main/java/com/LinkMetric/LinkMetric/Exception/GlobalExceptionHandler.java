@@ -79,7 +79,10 @@ public class GlobalExceptionHandler {
                 HttpStatus.NOT_FOUND
         );
     }
-
+    @ExceptionHandler(UserNotLoggedInException.class)
+    public ResponseEntity<ExceptionDto> UserNotLoggedInException(UserExistsException e){
+        return new ResponseEntity<>(new ExceptionDto(e.getMessage() , HttpStatus.BAD_REQUEST.value()) , HttpStatus.BAD_REQUEST);
+    }
 
 
 }

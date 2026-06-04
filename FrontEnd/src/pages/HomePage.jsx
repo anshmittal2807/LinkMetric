@@ -1,27 +1,46 @@
-import LandingHeader from '../components/landing/LandingHeader'
-import HeroSection from '../components/landing/HeroSection'
-import FeatureSection from '../components/landing/FeatureSection'
-import LandingCTA from '../components/landing/LandingCTA'
-import LandingFooter from '../components/landing/LandingFooter'
-import { motion } from 'motion/react'
-
+import LandingHeader from "../components/landing/LandingHeader";
+import HeroSection from "../components/landing/HeroSection";
+import FeatureSection from "../components/landing/FeatureSection";
+import LandingCTA from "../components/landing/LandingCTA";
+import LandingFooter from "../components/landing/LandingFooter";
+import { motion } from "motion/react";
+import { useEffect } from "react";
+import { useContext } from "react";
+import { checkLoginStatus } from "../services/authService";
+import UserContext from "../context/UserContext";
 function HomePage() {
-  
+  const { setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      console.log("Checking login status on dashboard load...");
+
+      const data = await checkLoginStatus();
+
+      if (data?.success) {
+        setUser(data.user);
+      } else {
+        setUser(null);
+      }
+    };
+
+    checkAuth();
+  }, []);
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#f8f9ff] text-[#0b1c30]">
       <motion.div
         initial={{ x: -24, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.55, ease: 'easeOut' }}
+        transition={{ duration: 0.55, ease: "easeOut" }}
       >
-        <LandingHeader  />
+        <LandingHeader />
       </motion.div>
       <main>
         <motion.div
           initial={{ x: 28, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.7, ease: 'easeOut', delay: 0.08 }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.08 }}
         >
           <HeroSection />
         </motion.div>
@@ -29,7 +48,7 @@ function HomePage() {
         <motion.div
           initial={{ x: -28, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.7, ease: 'easeOut', delay: 0.16 }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.16 }}
         >
           <FeatureSection />
         </motion.div>
@@ -37,19 +56,18 @@ function HomePage() {
         <motion.div
           initial={{ x: 28, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.7, ease: 'easeOut', delay: 0.24 }}
-        >
-        </motion.div>
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.24 }}
+        ></motion.div>
       </main>
       <motion.div
         initial={{ x: -24, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.55, ease: 'easeOut', delay: 0.3 }}
+        transition={{ duration: 0.55, ease: "easeOut", delay: 0.3 }}
       >
         <LandingFooter />
       </motion.div>
     </div>
-  )
+  );
 }
 
-export default HomePage
+export default HomePage;

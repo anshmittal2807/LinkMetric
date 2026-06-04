@@ -1,5 +1,4 @@
 import { BrowserRouter, Navigate, Route, Routes , createBrowserRouter } from 'react-router-dom'
-import UserContextProvider from '../context/UserContextProvider'
 import HomePage from '../pages/HomePage'
 import SignupPage from '../pages/SignupPage'
 import LoginPage from '../pages/LoginPage'
@@ -10,12 +9,12 @@ import Error from '../components/error/Error'
 const router  = createBrowserRouter([
   {
     path : '/',
-    element : <UserContextProvider><HomePage /></UserContextProvider>,
+    element : <HomePage />,
     errorElement: <Error />
   },
   {
     path: '/dashboard',
-    element: <UserContextProvider><DashboardPage /></UserContextProvider>,
+    element: <DashboardPage />,
     errorElement: <Error />
   },
   {
@@ -25,7 +24,7 @@ const router  = createBrowserRouter([
   { 
     path : '/login',
 
-    element : <UserContextProvider><LoginPage /></UserContextProvider>
+    element : <LoginPage />
   }  
 ])
 

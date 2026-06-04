@@ -32,3 +32,23 @@ export const login = async (credentials) => {
 		throw error;
 	}
 }
+
+export const checkLoginStatus = async () => {
+	try {
+		const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/checkAuth`, {
+			method: 'GET',
+			credentials: 'include', // Include cookies for session management
+		});
+		const data = await  res.json();
+		if(data?.success){	
+			return data; // Return user data if logged in
+		} else {
+			return null; // Not logged in
+		}
+
+	} catch (error) {
+		console.error('Error checking login status:', error);
+		throw error;
+	}
+}
+

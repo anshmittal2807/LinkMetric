@@ -2,6 +2,7 @@ package com.LinkMetric.LinkMetric.service.auth;
 
 import com.LinkMetric.LinkMetric.Dtos.request.AuthRequest;
 import com.LinkMetric.LinkMetric.Dtos.response.UserDto;
+import com.LinkMetric.LinkMetric.Exception.UserNotLoggedInException;
 import com.LinkMetric.LinkMetric.model.User;
 import com.LinkMetric.LinkMetric.repositories.UserRepository;
 import jakarta.servlet.http.Cookie;
@@ -71,6 +72,17 @@ public class AuthService {
 
         return map;
 
+    }
+    public  Map<String , Object> checkAuth(Authentication authentication){
+        Map<String , Object> map = new HashMap<>();
+        if(authentication ==  null){
+            throw  new UserNotLoggedInException("user not logged in");
+        }
+        map.put("success" , true);
+        Optional<User> userOptional = userRepository.findByUserName(authentication.getName());
+        User user = userOptional.get();
+        map.put("user" , new UserDto(user.getName() , user.getEmail() , user.getUserName()));
+        return  map;
     }
 
 
