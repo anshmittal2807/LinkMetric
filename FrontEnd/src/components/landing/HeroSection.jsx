@@ -11,7 +11,7 @@ function HeroSection() {
         <div className="absolute left-0 top-16 h-48 w-48 rounded-full bg-[#ffdbcd] blur-3xl sm:h-56 sm:w-56" />
         <div className="absolute bottom-0 right-0 h-64 w-64 rounded-full bg-[#eff4ff] blur-3xl sm:h-80 sm:w-80" />
       </div>
-
+      
       <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#c3c6d7] bg-white/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#0053db] shadow-sm">
         <Sparkles className="h-4 w-4" />
         Precision link management

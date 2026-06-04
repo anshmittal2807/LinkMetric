@@ -10,6 +10,8 @@ export const login = async (credentials) => {
 		let data;
 		try {
 			data = await res.json();
+			console.log('Login response data:', data);
+
 		} catch (err) {
 			throw new Error('Invalid response from server');
 		}
@@ -19,14 +21,9 @@ export const login = async (credentials) => {
 			throw new Error(data?.message || 'Login failed');
 		}
 
-		// Expecting token in data.token
-		const token = data?.token;
-		if (!token) {
-			throw new Error('No token returned from server');
-		}
+	
 
 		// Print token as requested
-		console.log('Login token:', token);
 
 		return data;
 	} catch (error) {
