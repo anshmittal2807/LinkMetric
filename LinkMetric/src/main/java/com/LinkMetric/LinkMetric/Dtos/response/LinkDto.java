@@ -26,7 +26,7 @@ public class LinkDto {
         this.orignalLink = orignalLink;
         this.linkId = linkId;
         this.dateTime = localDateTime;
-        this.shortLink = "https://linkme.com/" + shortLink;
+        this.shortLink = "linkme.com/" + shortLink;
         this.totalClicks = totalClicks;
     }
 

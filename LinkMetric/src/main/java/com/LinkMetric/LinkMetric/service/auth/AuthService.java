@@ -1,6 +1,8 @@
 package com.LinkMetric.LinkMetric.service.auth;
 
 import com.LinkMetric.LinkMetric.Dtos.request.AuthRequest;
+import com.LinkMetric.LinkMetric.Dtos.response.UserDto;
+import com.LinkMetric.LinkMetric.model.User;
 import com.LinkMetric.LinkMetric.repositories.UserRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class AuthService {
@@ -48,7 +51,11 @@ public class AuthService {
         cookie.setSecure(false);// HTTPS only
         cookie.setMaxAge(60*60*24*7);
         cookie.setPath("/");
+        Optional<User> userOptional = userRepository.findByUserName(username);
+        User user = userOptional.get();
+        response.put("user" , new UserDto(user.getName() , user.getEmail() , username));
         res.addCookie(cookie);
+
 
         return response;
     }

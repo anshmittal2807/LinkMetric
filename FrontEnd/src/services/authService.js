@@ -2,6 +2,7 @@ export const login = async (credentials) => {
 	try {
 		const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login`, {
 			method: 'POST',
+			credentials: 'include', // Include cookies for session management
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(credentials),
 		});
