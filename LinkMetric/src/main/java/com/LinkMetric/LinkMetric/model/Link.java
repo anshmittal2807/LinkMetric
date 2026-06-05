@@ -34,15 +34,25 @@ public class Link {
 
     private Long totalClicks = 0L;
 
+    private String host;
 
-    public Link( User owner, String hash, String link) {
+
+    public Link( User owner, String hash, String link , String host) {
 
         this.owner = owner;
         this.hash = hash;
         this.link = link;
         this.dateTime = LocalDateTime.now();
+        this.host = host;
 
+    }
 
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
     }
 
     public Long getTotalClicks() {

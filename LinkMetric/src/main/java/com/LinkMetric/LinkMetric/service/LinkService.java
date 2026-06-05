@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
 
@@ -28,7 +29,7 @@ public class LinkService {
     @Autowired
     private UserRepository userRepository;
 
-    public Map<String , Object> saveLink(SaveLink link , Authentication auth){
+    public Map<String , Object> saveLink(SaveLink link , Authentication auth) throws URISyntaxException {
 
         Map<String , Object> response = new HashMap<>();
 
@@ -43,13 +44,15 @@ public class LinkService {
         while (linkRepository.existsByHash(hash)){
             hash = UUID.randomUUID().toString().substring(0,8);
         }
+        URI uri = new URI(link.getLink());
+        String host = uri.getHost();
 
-        Link savedLink = linkRepository.save(new Link(user , hash , link.getLink()));
+        Link savedLink = linkRepository.save(new Link(user , hash , link.getLink() , host));
 
         response.put("success" , true);
         response.put("message" , "Link Shortened Successfully");
         response.put("linkDetails" , new LinkDto(savedLink.getLink() , savedLink.getLinkId() ,
-                savedLink.getDateTime() ,  savedLink.getHash(), savedLink.getTotalClicks()));
+                savedLink.getDateTime() ,  savedLink.getHash(), savedLink.getTotalClicks() , savedLink.getHost()));
         return  response;
     }
 

@@ -36,24 +36,24 @@ public class AuthController {
     }
 
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<Map<String , Object>> handleLogin(@Valid @RequestBody AuthRequest authRequest , HttpServletResponse request){
         System.out.println("LoginAuth HIT");
         return  new ResponseEntity<>(authService.handleLogin(authRequest , request) , HttpStatus.OK);
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/auth/signup")
     public ResponseEntity<?> handleRegisteration(@Valid @RequestBody RegisterRequest registerRequest){
         return new ResponseEntity<>(userService.handleRegistration(registerRequest) , HttpStatus.OK);
     }
 
-    @PostMapping("/logout")
+    @PostMapping("/auth/logout")
     public ResponseEntity<?> handleLogout( HttpServletResponse response){
         System.out.println("logout controller HIT");
         return new ResponseEntity<>(authService.handleLogout( response) , HttpStatus.OK);
     }
 
-    @GetMapping("/checkAuth")
+    @GetMapping("/auth/checkAuth")
     public ResponseEntity<?> me(Authentication authentication) {
         return  new ResponseEntity<>(authService.checkAuth(authentication) , HttpStatus.OK);
     }

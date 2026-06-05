@@ -1,5 +1,6 @@
 package com.LinkMetric.LinkMetric.Exception;
 
+
 import com.LinkMetric.LinkMetric.Dtos.response.ExceptionDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,8 @@ import org.springframework.security.authentication.InternalAuthenticationService
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.net.URISyntaxException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -23,6 +26,7 @@ public class GlobalExceptionHandler {
                 HttpStatus.UNAUTHORIZED
         );
     }
+
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ExceptionDto> userNotFoundException(UserNotFoundException e){
@@ -84,5 +88,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new ExceptionDto(e.getMessage() , HttpStatus.BAD_REQUEST.value()) , HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(URISyntaxException.class)
+    public ResponseEntity<ExceptionDto> URISyntaxException(URISyntaxException e){
+        return new ResponseEntity<>(new ExceptionDto(e.getMessage() , HttpStatus.BAD_REQUEST.value()) , HttpStatus.BAD_REQUEST);
+    }
 
 }

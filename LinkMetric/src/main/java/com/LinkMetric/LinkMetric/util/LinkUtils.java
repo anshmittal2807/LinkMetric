@@ -12,7 +12,7 @@ public class LinkUtils {
         List<LinkDto> DtoLs = new ArrayList<>();
 
         ls.forEach(link -> {
-            DtoLs.add(new LinkDto(link.getLink() ,  link.getLinkId() , link.getDateTime() , link.getHash() , link.getTotalClicks()));
+            DtoLs.add(new LinkDto(link.getLink() ,  link.getLinkId() , link.getDateTime() , link.getHash() , link.getTotalClicks() , link.getHost()));
         });
 
         return DtoLs;
