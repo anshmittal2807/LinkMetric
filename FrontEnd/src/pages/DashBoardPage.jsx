@@ -1,5 +1,5 @@
 import React from 'react'
-import LinkTable from '../components/dashboard/LinkTable'
+import LinkInfo from '../components/dashboard/LinkInfo'
 
 
 
@@ -8,8 +8,18 @@ function DashBoardPage() {
 
 
   return (
-    <LinkTable/>
-  )
+      <>
+      <LinkInfo/>
+      <LinkInfo/>
+      <LinkInfo/>
+      <LinkInfo/>
+      <LinkInfo/>
+      <LinkInfo/>
+      <LinkInfo/>
+
+
+      </>
+    )
 }
 
 export default DashBoardPage

@@ -1,6 +1,6 @@
 export const login = async (credentials) => {
 	try {
-		const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login`, {
+		const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
 			method: 'POST',
 			credentials: 'include', // Include cookies for session management
 			headers: { 'Content-Type': 'application/json' },
@@ -35,7 +35,7 @@ export const login = async (credentials) => {
 
 export const checkLoginStatus = async () => {
 	try {
-		const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/checkAuth`, {
+		const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/checkAuth`, {
 			method: 'GET',
 			credentials: 'include', // Include cookies for session management
 		});
@@ -55,7 +55,7 @@ export const checkLoginStatus = async () => {
 
 export const logout = async () => {
 	try {
-		const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/logout`, {
+		const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/logout`, {
 			method: 'POST',
 			credentials: 'include',
 		});

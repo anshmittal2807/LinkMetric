@@ -34,3 +34,8 @@ export const validateFormData = (name, username, email, password) => {
     return { isValid: true, message: 'All fields are valid' };      
 
 };
+
+export const validateURL = (url) => {
+    const urlRegex = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+)([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?$/;    
+    return urlRegex.test(url);
+}

@@ -1,5 +1,5 @@
-import Signup from '../components/Signup'
-import SignupHeader from '../components/SignupHeader'
+import Signup from '../components/auth/Signup'
+import SignupHeader from '../components/auth/SignupHeader'
 import { Activity } from "lucide-react";
 import { BadgeCheck } from "lucide-react";
 import signupImage from '../assets/signupPageimg.png'

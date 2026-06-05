@@ -33,8 +33,7 @@ export const getUserLinks = async () => {
             method: 'GET',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
-            body : {
-            }
+           
         })
         const data = await res.json();
         return data;

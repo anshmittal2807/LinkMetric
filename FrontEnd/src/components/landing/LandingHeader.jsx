@@ -50,7 +50,7 @@ function LandingHeader() {
 
            {user &&
 <>
-            <Link to="/dashboard" className="rounded-full bg-[#004ac6] px-5 py-2 text-sm font-semibold text-white shadow-[0_12px_30px_-18px_rgba(0,74,198,0.8)] transition hover:bg-[#003ea8]">
+            <Link to="/dashboard" className="rounded-full bg-[#004ac6] px-5 py-2 text-sm font-semibold text-white shadow-[0_12px_30px_-18px_rgba(0,74,198,0.8)] transition hover:bg-white hover:text-[#004ac6] hover:border-[#004ac6] hover:border-2-[#004ac6] border">
             Dashboard
           </Link>
 

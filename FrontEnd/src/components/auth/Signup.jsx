@@ -1,10 +1,10 @@
 import React from 'react'
-import FormInput from './FormInput'
+import FormInput from '../FormInput'
 import { ArrowRight, LockKeyhole, Mail, UserRound } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import{handleRegister} from '../services/handleRegister'
+import{handleRegister} from '../../services/handleRegister'
 import {useState} from 'react' 
-import { validateFormData } from '../services/regexValidator'
+import { validateFormData } from '../../services/regexValidator'
 
 function Signup() {
   const[formData , setFormData] =  useState({

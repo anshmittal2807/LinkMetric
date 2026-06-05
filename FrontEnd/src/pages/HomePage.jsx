@@ -14,19 +14,26 @@ function HomePage() {
   const { setUser } = useContext(UserContext);
 
   useEffect(() => {
-    const checkAuth = async () => {
+    const checkAuth = async () => { try {
+
       console.log("Checking login status on dashboard load...");
-
+      
       const data = await checkLoginStatus();
-
+      
       if (data?.success) {
         setUser(data.user);
       } else {
         setUser(null);
       }
-
+      
       setLoading(false);
-    };
+    } catch (err) {
+      console.error("Error checking login status:", err);
+      setUser(null);
+    }finally{
+      setLoading(false);
+    }
+  }
 
     checkAuth();
   }, []);

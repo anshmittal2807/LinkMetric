@@ -3,13 +3,13 @@ import { useRouteError, useNavigate, Link } from 'react-router-dom'
 import { AlertTriangle } from 'lucide-react'
 import {motion} from 'framer-motion'
 
-const Error = () => {
+const Error = ({custStatus , errorMessage}) => {
     const error = useRouteError()
     const navigate = useNavigate()
     console.error(error)
 
-    const status = error?.status || 'Error'
-    const message = error?.statusText || error?.message || 'Something went wrong.'
+    const status = custStatus || error?.status || 'Error'
+    const message = errorMessage || error?.statusText || error?.message || 'Something went wrong.'
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-linear-to-b from-white via-[#f3f7ff] to-[#eef4ff] px-6">

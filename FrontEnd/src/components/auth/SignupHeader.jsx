@@ -2,7 +2,7 @@ import React from 'react'
 import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
-import BrandMark from './BrandMark'
+import BrandMark from '../BrandMark'
 
 
 function SignupHeader() {

@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react'
-import FormInput from './FormInput'
+import FormInput from '../FormInput'
 import { ArrowRight, LockKeyhole, Mail, ShieldCheck } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { login } from '../services/authService'
-import { validateUsername, validatePassword } from '../services/regexValidator'
-import UserContext from '../context/UserContext'
+import { login } from '../../services/authService'
+import { validateUsername, validatePassword } from '../../services/regexValidator'
+import UserContext from '../../context/UserContext'
 
 function Login() {
   const [form, setForm] = useState({ userName: '', password: '' })

@@ -1,5 +1,5 @@
-import Login from '../components/Login'
-import LoginHeader from '../components/LoginHeader'
+import Login from '../components/auth/Login'
+import LoginHeader from '../components/auth/LoginHeader'
 import { LogIn, ShieldCheck, TrendingUp } from 'lucide-react'
 import{motion} from 'motion/react'
 

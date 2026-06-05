@@ -2,6 +2,9 @@ import { ArrowRight, Link2, Sparkles } from 'lucide-react'
 import {shortenLink} from '../../services/linkService'
 import {useState} from 'react'
 import CopyButton from './CopyButton'
+import {validateURL} from '../../services/regexValidator'
+import { AnimatePresence, motion } from 'framer-motion'
+
 
 
 function HeroSection() {
@@ -14,11 +17,17 @@ function HeroSection() {
 
   const handleShorten =  async () => {
         try {
+          linkValue.trim() === '' && (() => {throw new Error('URL can not be blank')})();
+          !validateURL(linkValue) && (() => {throw new Error('Please enter a valid URL')})();
+          setShortenedLink(null);
           setErr(false);
           setErrMsg('');
           const response = await shortenLink(linkValue);
           setShortenedLink(response.linkDetails.shortLink);
           setLinkValue('');
+          setTimeout(()=>{
+              setShortenedLink(null);
+          } , 1000*60) // Clear shortened link after 1 minute
           
         } catch (err) {
           setErr(true);
@@ -69,20 +78,32 @@ return (
           </button>
         </div>
 
+        <AnimatePresence>
         {shortenedLink && (
-          <div className='text-[#004ac6] py-3 font-bold flex items-center gap-2 justify-center '> 
+          
+          <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit ={{
+            opacity:0 , y:-10 , transition: 'easeInOut'          }}
+          >
+
+          <div className='text-[#004ac6] py-3 font-bold text-lg flex items-center gap-2 justify-center '> 
               <p>
                 Shortened Link : {shortenedLink}
               </p>
               <div>
+              
 
               <CopyButton textToCopy={shortenedLink} /> 
               </div>
              </div>
+            </motion.div> 
 
         )}
+            </AnimatePresence>
 
-        {err && <p className="mt-3 text-sm text-red-600">{errMsg}</p>}
+        {err && <p className="mt-3 text-lg text-red-600">{errMsg}</p>}
       </div>
 
       <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#737686]">
