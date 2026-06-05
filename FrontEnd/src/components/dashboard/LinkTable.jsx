@@ -1,41 +1,24 @@
+import { useEffect } from "react"
+import { getUserLinks } from "../../services/linkService"
+
 const LinkTable = () => {
+    const[linkData , setLinkData] = useState([]);
+    const[loading , setLoading] = useState(true);
+
+    
+    useEffect(() => {
+        const fetchLinks =  async () => {
+            const data = await getUserLinks();
+            setLinkData(data);
+            setLoading(false);
+        }
+        
+        fetchLinks();
+
+    })
+    if(loading) return <p>Loading...</p>
 
     return <>
-    <table>
-        <thead>
-            <th>
-            Link Details
-            </th>
-            <th>
-                Clicks
-            </th>
-            <th>
-                Created At
-            </th>
-            <th>
-                Actions
-                </th>
-        </thead>
-        <tbody>
-
-        <tr>
-            <td>
-                https://www.google.com  
-            </td>
-            <td>
-                100
-            </td>
-            <td>
-                2023-01-01
-            </td>
-            <td>
-                Edit | Delete
-            </td>
-        </tr>
-
-        </tbody>
-    </table>
-
     </>
 }
 

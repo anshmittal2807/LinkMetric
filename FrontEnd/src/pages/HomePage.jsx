@@ -4,11 +4,13 @@ import FeatureSection from "../components/landing/FeatureSection";
 import LandingCTA from "../components/landing/LandingCTA";
 import LandingFooter from "../components/landing/LandingFooter";
 import { motion } from "motion/react";
-import { useEffect } from "react";
+import { useEffect , useState } from "react";
 import { useContext } from "react";
 import { checkLoginStatus } from "../services/authService";
 import UserContext from "../context/UserContext";
 function HomePage() {
+  const [loading , setLoading] = useState(true);
+  
   const { setUser } = useContext(UserContext);
 
   useEffect(() => {
@@ -22,10 +24,14 @@ function HomePage() {
       } else {
         setUser(null);
       }
+
+      setLoading(false);
     };
-  
+
     checkAuth();
   }, []);
+
+  if(loading) return <p>Loading...</p>
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#f8f9ff] text-[#0b1c30]">
@@ -64,7 +70,7 @@ function HomePage() {
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.55, ease: "easeOut", delay: 0.3 }}
       >
-        <LandingFooter />
+        {/* <LandingFooter /> */}
       </motion.div>
     </div>
   );

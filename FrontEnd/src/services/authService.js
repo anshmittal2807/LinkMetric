@@ -52,3 +52,21 @@ export const checkLoginStatus = async () => {
 	}
 }
 
+
+export const logout = async () => {
+	try {
+		const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/logout`, {
+			method: 'POST',
+			credentials: 'include',
+		});
+		const data = await res.json();
+		if (data?.success) {
+			return data;
+		} else {
+			throw new Error(data?.message || 'Logout failed');
+		}
+	} catch (error) {
+		console.error('Error occurred while logging out:', error);
+		throw error;
+	}
+};

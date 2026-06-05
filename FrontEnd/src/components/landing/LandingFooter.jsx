@@ -6,7 +6,7 @@ function LandingFooter() {
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-8 md:flex-row md:items-center md:justify-between lg:px-8">
         <div>
           <p className="text-lg font-semibold text-[#004ac6]">Link Precision</p>
-          <p className="mt-1 text-sm text-[#434655]">© 2024 Link Precision. All rights reserved.</p>
+          <p className="mt-1 text-sm text-[#434655]">© 2026 Link Precision. All rights reserved.</p>
         </div>
 
         <nav className="flex flex-wrap items-center gap-4 text-sm font-medium text-[#434655]">
