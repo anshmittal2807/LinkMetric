@@ -39,7 +39,7 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/signup").permitAll()
-                        .requestMatchers("/{hashId}").permitAll()
+                        .requestMatchers("link/{hashId}").permitAll()
                         .anyRequest().authenticated()
                 )
 
