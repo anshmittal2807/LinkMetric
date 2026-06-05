@@ -1,6 +1,8 @@
 import { ArrowRight, Link2, Sparkles } from 'lucide-react'
 import {shortenLink} from '../../services/linkService'
 import {useState} from 'react'
+import CopyButton from './CopyButton'
+
 
 function HeroSection() {
   const[linkValue, setLinkValue] = useState('')
@@ -15,6 +17,8 @@ function HeroSection() {
           setErr(false);
           setErrMsg('');
           const response = await shortenLink(linkValue);
+          setShortenedLink(response.linkDetails.shortLink);
+          setLinkValue('');
           
         } catch (err) {
           setErr(true);
@@ -64,6 +68,21 @@ return (
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>
+
+        {shortenedLink && (
+          <div className='text-[#004ac6] py-3 font-bold flex items-center gap-2 justify-center '> 
+              <p>
+                Shortened Link : {shortenedLink}
+              </p>
+              <div>
+
+              <CopyButton textToCopy={shortenedLink} /> 
+              </div>
+             </div>
+
+        )}
+
+        {err && <p className="mt-3 text-sm text-red-600">{errMsg}</p>}
       </div>
 
       <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#737686]">

@@ -23,7 +23,7 @@ function HomePage() {
         setUser(null);
       }
     };
-
+  
     checkAuth();
   }, []);
 
