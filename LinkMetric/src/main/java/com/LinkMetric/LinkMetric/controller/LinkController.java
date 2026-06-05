@@ -30,7 +30,7 @@ public class LinkController {
         return linkService.fetchAllLinks(authentication);
     }
 
-    @GetMapping("/link/{hashId}")
+    @GetMapping("/link/redirect/{hashId}")
     public ResponseEntity<Void> redirectUser(@PathVariable String hashId , HttpServletRequest request) throws URISyntaxException {
         String url = linkService.redirectUser(hashId , request);
        return ResponseEntity

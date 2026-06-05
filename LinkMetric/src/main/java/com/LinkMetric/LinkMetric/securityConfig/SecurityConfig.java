@@ -38,8 +38,9 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/signup").permitAll()
-                        .requestMatchers("link/{hashId}").permitAll()
+                        .requestMatchers("/login", "/signup" ,"/checkAuth" ).permitAll()
+                        .requestMatchers("link/redirect/{hashId}").permitAll()
+
                         .anyRequest().authenticated()
                 )
 

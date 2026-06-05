@@ -80,7 +80,7 @@ public class GlobalExceptionHandler {
         );
     }
     @ExceptionHandler(UserNotLoggedInException.class)
-    public ResponseEntity<ExceptionDto> UserNotLoggedInException(UserExistsException e){
+    public ResponseEntity<ExceptionDto> UserNotLoggedInException(UserNotLoggedInException e){
         return new ResponseEntity<>(new ExceptionDto(e.getMessage() , HttpStatus.BAD_REQUEST.value()) , HttpStatus.BAD_REQUEST);
     }
 
