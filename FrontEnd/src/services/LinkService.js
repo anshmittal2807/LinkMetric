@@ -3,7 +3,7 @@
         const res = await  fetch(`${import.meta.env.VITE_BACKEND_URL}/link/saveLink`, {
             method: 'POST',
             body: JSON.stringify({
-                'link' : originalUrl.toLowerCase().trim()
+                'link' : originalUrl
             }),
             credentials: 'include', // Include cookies for session management
             
@@ -27,22 +27,23 @@
 
 
 export const getUserLinks = async () => {
-
-    try {
-        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/link/getAllLinks`, {
-            method: 'GET',
-            credentials: 'include',
-            headers: { 'Content-Type': 'application/json' },
-           
-        })
-        const data = await res.json();
-        return data;
-    
-    } catch(err){
-        console.error('Error fetching user links:', err);
-        throw err;
+  const res = await fetch(
+    `${import.meta.env.VITE_BACKEND_URL}/link/getAllLinks`,
+    {
+      method: "GET",
+      credentials: "include",
     }
+  );
 
+  console.log("STATUS:", res.status);
 
-}
+  const data = await res.json().catch(() => null);
 
+  console.log("RESPONSE:", data);
+
+  if (!res.ok) {
+    throw new Error(data?.message || `HTTP ${res.status}`);
+  }
+
+  return data;
+};

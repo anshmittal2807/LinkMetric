@@ -11,7 +11,7 @@ import AllLinkContext from '../context/AllLinkContext'
 import{getUserLinks} from '../services/linkService'
 // DashBoardPage.jsx
 function DashBoardPage() {
-  const {allLinks, setAllLinks , seachText , setSearchText} = useContext(AllLinkContext);
+  const {allLinks, setAllLinks , searchText , setSearchText} = useContext(AllLinkContext);
   const[loading,  setLoading] = React.useState(false);
   const[filteredLinks , setFilteredLinks] = React.useState([]);
 
@@ -19,10 +19,12 @@ function DashBoardPage() {
     const fetchLinks = async () => {
       try {
         setLoading(true);
+      
         const data = await getUserLinks();
         if (data?.success) {
-          setAllLinks(data.links);
-          setFilteredLinks(data.links);
+          setAllLinks(data.data);
+          console.log('Fetched user links:', data.data);
+          setFilteredLinks(data.data);
         } else {
           setAllLinks([]);
           setFilteredLinks([]);
@@ -34,8 +36,25 @@ function DashBoardPage() {
         }finally{
           setLoading(false);
       }
+    }
     fetchLinks();
-    }}, []);
+  }
+    , []);
+
+    useEffect(() =>{
+
+      if(searchText.trim() === ''){
+        setFilteredLinks(allLinks);
+      }
+
+      else {
+        const filtered = allLinks.filter((l) => l.originalLink.toLowerCase().trim().includes(searchText.toLowerCase()));
+        setFilteredLinks(filtered);
+      }
+
+    } ,[searchText , allLinks])
+
+
 
   if (loading) {
     return (
@@ -85,7 +104,8 @@ function DashBoardPage() {
           className="flex flex-col gap-3 mt-4">
             {
               filteredLinks.map((link) => (
-                <LinkInfo key={link._id} linkData={link} />
+                console.log('Rendering LinkInfo for link:', link.host),
+                <LinkInfo key={link._id} originalLink={link.originalLink} shortLink={link.shortLink} totalClicks={link.totalClicks} date={link.dateTime.substring(0, 10)} hostname={link.host} />
               ))
             }
 

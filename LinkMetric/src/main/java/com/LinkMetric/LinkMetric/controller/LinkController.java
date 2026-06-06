@@ -27,8 +27,9 @@ public class LinkController {
     }
 
     @GetMapping("/link/getAllLinks")
-    public Map<String , Object> fetchAllLinks (Authentication authentication){
-        return linkService.fetchAllLinks(authentication);
+    public ResponseEntity<Map<String , Object>> fetchAllLinks (Authentication authentication){
+        System.out.println("fetching all links");
+        return new ResponseEntity<>(linkService.fetchAllLinks(authentication) , HttpStatus.OK);
     }
 
     @GetMapping("/{hashId}")

@@ -1,6 +1,6 @@
 import CopyButton from "../landing/CopyButton";
 import{Pencil} from 'lucide-react';
-const LinkInfo = () => {
+const LinkInfo = ({originalLink , shortLink ,totalClicks , date , hostname}) => {
 
 const text = "https://www.google.com/search?q=react+context+api&rlz=1C1GCEU_enIN832IN832&oq=react+context+api&aqs=chrome..69i57j0i512l9.1225j0j7&sourceid=chrome&ie=UTF-8";
   return (
@@ -13,7 +13,7 @@ const text = "https://www.google.com/search?q=react+context+api&rlz=1C1GCEU_enIN
             </div>
             <div className="mt-3 flex items-start gap-3">
               <div className="min-w-0 flex-1">
-                <p className="truncate text-lg font-semibold text-slate-900 sm:text-xl">Google.com</p>
+                <p className="truncate text-lg font-semibold text-slate-900 sm:text-xl">{hostname}</p>
                 <p className="mt-1 text-sm text-slate-500">Short URL</p>
               </div>
             </div>
@@ -26,7 +26,7 @@ const text = "https://www.google.com/search?q=react+context+api&rlz=1C1GCEU_enIN
         </div>
 
         <div className="flex justify-between gap-3 rounded-2xl bg-blue-700  px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="min-w-0 truncate text-sm font-semibold text-white sm:text-base relative top-1.5 sm:top-0">LocalHost:8080</p>
+          <p className="min-w-0 truncate text-sm font-semibold text-white sm:text-base relative top-1.5 sm:top-0">{shortLink}</p>
           <div className="shrink-0">
             <CopyButton buttonClassName="rounded-xl bg-blue-600 hover:bg-blue-500 text-white relative bottom-0.5" iconClassName="text-white" />
           </div>
@@ -34,14 +34,14 @@ const text = "https://www.google.com/search?q=react+context+api&rlz=1C1GCEU_enIN
 
         <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p className='min-w-0 flex-1 wrap-break-word text-sm leading-6 text-slate-600'>
-            {text.length > 70 ? text.slice(0, 70) + "..." : text}
+            {originalLink}
           </p>
 
           <div className="flex shrink-0 items-center gap-3 sm:justify-end">
             <span className="rounded-full bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
-              500 Clicks
+              {totalClicks} Clicks
             </span>
-            <span className="text-xs text-slate-500 sm:text-sm">28-07-2026</span>
+            <span className="text-xs text-slate-500 sm:text-sm">{date}</span>
           </div>
         </div>
       </div>

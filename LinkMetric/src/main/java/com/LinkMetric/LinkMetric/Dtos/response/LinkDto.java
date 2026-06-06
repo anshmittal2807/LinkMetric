@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class LinkDto {
 
-    private String orignalLink;
+    private String originalLink;
     private  String shortLink;
     private LocalDateTime dateTime;
     private Integer linkId;
@@ -20,11 +20,11 @@ public class LinkDto {
     }
 
     public String getOrignalLink() {
-        return orignalLink;
+        return originalLink;
     }
 
     public LinkDto(String orignalLink, Integer linkId, LocalDateTime localDateTime, String shortLink, Long totalClicks , String host) {
-        this.orignalLink = orignalLink;
+        this.originalLink = orignalLink;
         this.linkId = linkId;
         this.dateTime = localDateTime;
         this.shortLink = "localhost:8080/" + shortLink;
@@ -33,7 +33,7 @@ public class LinkDto {
     }
 
     public void setOrignalLink(String orignalLink) {
-        this.orignalLink = orignalLink;
+        this.originalLink = orignalLink;
     }
 
     public String getShortLink() {
