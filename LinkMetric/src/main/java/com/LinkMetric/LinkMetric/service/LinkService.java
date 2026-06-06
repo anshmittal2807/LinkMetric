@@ -6,6 +6,7 @@ import com.LinkMetric.LinkMetric.Exception.LinkNotFoundException;
 import com.LinkMetric.LinkMetric.model.Link;
 import com.LinkMetric.LinkMetric.model.User;
 import com.LinkMetric.LinkMetric.repositories.LinkRepository;
+import com.LinkMetric.LinkMetric.repositories.LogRepository;
 import com.LinkMetric.LinkMetric.repositories.UserRepository;
 import com.LinkMetric.LinkMetric.util.LinkUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,6 +30,8 @@ public class LinkService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private LogRepository logRepository;
     public Map<String , Object> saveLink(SaveLink link , Authentication auth) throws URISyntaxException {
 
         Map<String , Object> response = new HashMap<>();
@@ -79,5 +82,33 @@ public class LinkService {
         linkRepository.save(link);
         return link.getLink();
     }
+    public Map<String, Object> deleteLink(Integer linkId, Authentication authentication) {
 
-}
+        Map<String, Object> responseMap = new HashMap<>();
+
+        String userName = authentication.getName();
+
+        Optional<Link> linkOptional = linkRepository.findById(linkId);
+
+        if (linkOptional.isEmpty()) {
+            responseMap.put("success", false);
+            responseMap.put("message", "Link not found");
+            return responseMap;
+        }
+
+        Link link = linkOptional.get();
+
+        if (!link.getOwner().getUserName().equals(userName)) {
+            responseMap.put("success", false);
+            responseMap.put("message", "You are not authorized to delete this link");
+            return responseMap;
+        }
+        linkRepository.delete(link);
+
+        responseMap.put("success", true);
+        responseMap.put("message", "Link deleted successfully");
+
+        return responseMap;
+    }
+
+    }

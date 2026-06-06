@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Link {
@@ -35,7 +37,12 @@ public class Link {
     private Long totalClicks = 0L;
 
     private String host;
-
+    @OneToMany(
+            mappedBy = "link",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Log> logs = new ArrayList<>();
 
     public Link( User owner, String hash, String link , String host) {
 

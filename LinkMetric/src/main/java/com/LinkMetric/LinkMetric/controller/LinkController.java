@@ -43,4 +43,10 @@ public class LinkController {
                 .build();
     }
 
-}
+    @DeleteMapping("/link/delete/{linkId}")
+    public ResponseEntity<Map<String , Object>> deleteLink ( @PathVariable Integer linkId , Authentication authentication) {
+        System.out.println("delete endpoint hit");
+        return new ResponseEntity<>(linkService.deleteLink(linkId , authentication), HttpStatus.OK);
+    }
+
+    }
