@@ -1,9 +1,9 @@
-import {Clipboard} from 'lucide-react';
+import {Copy} from 'lucide-react';
 import { Check } from "lucide-react";
 import{useState} from 'react';
 
 
-const CopyButton = ({ textToCopy }) => {
+const CopyButton = ({ textToCopy, buttonClassName = '', iconClassName = 'text-blue-800' }) => {
     const[tick , setTick] = useState(false);
     const copy = async () => {
 
@@ -24,12 +24,12 @@ const CopyButton = ({ textToCopy }) => {
     return <>
     <div>
 
-    <button onClick={copy} className = 'bg-blue-300 p-2 rounded-md text-white hover:bg-blue-500 transition-colors duration-200 flex items-center gap-1 '>
+    <button onClick={copy} className={`p-2 rounded-md transition-colors duration-200 flex items-center gap-1 ${buttonClassName}`}>
         {tick ? (
-            <Check className="h-4 w-4" />
+            <Check className={`h-4 w-4 ${iconClassName}`} strokeWidth={3} />
 
         ) : (
-            <Clipboard className="h-4 w-4" />
+            <Copy className={`h-4 w-4 ${iconClassName}`} strokeWidth={3} />
         )}
         
     </button>

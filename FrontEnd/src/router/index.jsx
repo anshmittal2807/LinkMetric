@@ -4,6 +4,7 @@ import SignupPage from '../pages/SignupPage'
 import LoginPage from '../pages/LoginPage'
 import DashboardPage from '../pages/DashBoardPage'
 import Error from '../components/error/Error'
+import AllLinkContextProvider from '../context/AllLinkContextProvider'
 
 
 const router  = createBrowserRouter([
@@ -14,7 +15,7 @@ const router  = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <DashboardPage />,
+    element: <AllLinkContextProvider> <DashboardPage />  </AllLinkContextProvider>,
     errorElement: <Error />
   },
   {

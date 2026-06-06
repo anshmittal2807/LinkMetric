@@ -3,7 +3,7 @@
         const res = await  fetch(`${import.meta.env.VITE_BACKEND_URL}/link/saveLink`, {
             method: 'POST',
             body: JSON.stringify({
-                'link' : originalUrl
+                'link' : originalUrl.toLowerCase().trim()
             }),
             credentials: 'include', // Include cookies for session management
             
