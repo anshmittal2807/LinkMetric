@@ -5,6 +5,8 @@ import LoginPage from '../pages/LoginPage'
 import DashboardPage from '../pages/DashBoardPage'
 import Error from '../components/error/Error'
 import AllLinkContextProvider from '../context/AllLinkContextProvider'
+import ProtectedRoute from './ProtectedRoute'
+import AnalyticsPage from '../pages/AnalyticsPage'
 
 
 const router  = createBrowserRouter([
@@ -15,7 +17,12 @@ const router  = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <AllLinkContextProvider> <DashboardPage />  </AllLinkContextProvider>,
+    element: <ProtectedRoute>
+
+      <AllLinkContextProvider>
+        <DashboardPage />
+      </AllLinkContextProvider>
+    </ProtectedRoute>,
     errorElement: <Error />
   },
   {
@@ -31,6 +38,11 @@ const router  = createBrowserRouter([
     path : '/error',
     element: <Error/>
   }  
+  ,
+  {
+    path : '/analytics',
+    element: <AnalyticsPage/>
+  } 
 ])
 
 

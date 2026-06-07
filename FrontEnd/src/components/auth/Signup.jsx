@@ -11,7 +11,8 @@ function Signup() {
     name : '',
     userName : '',
     email : '',
-    password : ''
+    password : '',
+    confirmPassword : ''
   });
 
   const[error , setError] = useState(false)
@@ -26,8 +27,15 @@ function Signup() {
       return;
     }
 
+    if (formData.password !== formData.confirmPassword) {
+      setError(true);
+      setErrorMessage('Passwords do not match');
+      return;
+    }
+
     try {
-      const data  = await handleRegister(formData);
+      const { confirmPassword, ...payload } = formData;
+      const data  = await handleRegister(payload);
       console.log('Registration successful:', data);
       setError(false);
             window.location.href = '/login' // Redirect to dashboard after successful login
@@ -58,6 +66,7 @@ function Signup() {
           <FormInput id="userName" name="userName" label="Username" placeholder="Username" icon={UserRound} value={formData.userName} onChange={(e) => { setFormData({ ...formData, userName: e.target.value }) }} />
           <FormInput id="email" name="email" label="Email" type="email" placeholder="Email" icon={Mail} value={formData.email} onChange={(e) => { setFormData({ ...formData, email: e.target.value }) }} />
           <FormInput id="password" name="password" label="Password" type="password" placeholder="Password" icon={LockKeyhole} value={formData.password} onChange={(e) => { setFormData({ ...formData, password: e.target.value }) }} />
+          <FormInput id="confirmPassword" name="confirmPassword" label="Confirm Password" type="password" placeholder="Confirm Password" icon={LockKeyhole} value={formData.confirmPassword} onChange={(e) => { setFormData({ ...formData, confirmPassword: e.target.value }) }} />
           
           <button type="submit" className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-[#2563eb] px-4 py-3 font-semibold text-white shadow-sm shadow-blue-200/70 transition hover:bg-[#004ac6] hover:shadow-md">
             <span>Register Now</span>

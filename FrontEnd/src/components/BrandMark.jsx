@@ -10,7 +10,6 @@ function BrandMark() {
 
       <div className="leading-tight">
         <h1 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0053db]">Link Metric</h1>
-        <p className="text-sm text-[#434655]">Control every connection</p>
       </div>
     </Link>
   )

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { motion } from "framer-motion";
-import{updateLinkAlias} from '../../services/linkService';
+import { getUserLinks, updateLinkAlias } from '../../services/linkService';
 import AllLinkContext from '../../context/AllLinkContext';
 import { useContext } from "react";
 
@@ -10,19 +10,27 @@ const EditLinkInfo = ({ setVisibility, originalLink = "", shortLink = "" , linkI
   const initialAlias = shortLink ? shortLink.substring(15) : "";
   const [alias, setAlias] = useState(initialAlias);
   const{setAllLinks} = useContext(AllLinkContext);
+  const [error, setError] = useState(null);
 
 
     const handleSaveChanges = async (e) => {
         e.preventDefault();
         try {
+          setError(null);
             const res = await updateLinkAlias(linkId, alias);
             if(!res.success){
                 throw new Error(res?.message || 'Failed to update link alias');
             }
-            setAllLinks(res.data);
+            console.log('Link alias updated successfully:', res.data);
+
+        const updatedLinks = await getUserLinks();
+        if (updatedLinks?.success) {
+          setAllLinks(updatedLinks.data);
+        }
             setVisibility(false);   
 
         } catch (err) {
+          setError(err.message || 'An error occurred while saving changes');
             console.error('Error saving changes:', err);
         } 
     }
@@ -34,7 +42,7 @@ const EditLinkInfo = ({ setVisibility, originalLink = "", shortLink = "" , linkI
 
 
   const prefix = shortLink
-  ? shortLink.split("/").pop()
+  ? shortLink.substring(0,15)
   : "";
   const truncatedOriginal = originalLink?.length > 140 ? `${originalLink.substring(0, 137)}...` : originalLink;
 
@@ -80,10 +88,11 @@ const EditLinkInfo = ({ setVisibility, originalLink = "", shortLink = "" , linkI
             />
           </div>
 
-          <div className="mt-4 text-sm text-slate-700 dark:text-slate-300">
-            <span className="font-medium">Original URL</span>
-            <p className="mt-2 wrap-break-words">{truncatedOriginal}</p>
-          </div>
+          {error && (
+            <div className="mt-4 text-sm text-red-600 dark:text-red-400">
+              {error}
+            </div>
+          )}
 
           <div className="mt-6 flex justify-end gap-3">
             <button

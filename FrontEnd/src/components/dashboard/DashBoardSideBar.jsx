@@ -9,21 +9,22 @@ const DashboardSideBar = () => {
         <div className="mb-8">
         <BrandMark /> <br/>
             
-          <p className="text-sm text-slate-500">Quick navigation</p>
+          <p className="text-sm text-slate-500 font-semibold">Quick navigation</p>
         </div>
 
         <nav className="space-y-2 text-sm font-medium">
           <Link
             to='/'
-            className="flex items-center gap-3 rounded-xl px-3 py-3 text-slate-700 transition hover:bg-blue-50 hover:text-blue-700"
+            className="flex font-semibold items-center gap-3 rounded-xl px-3 py-3 text-slate-700 transition hover:bg-blue-50 hover:text-blue-700"
           >
             Home
           </Link>
+      
           <Link
-            to='/'
-            className="flex items-center gap-3 rounded-xl px-3 py-3 text-slate-700 transition hover:bg-blue-50 hover:text-blue-700"
+            to='/analytics'
+            className="flex font-semibold items-center gap-3 rounded-xl px-3 py-3 text-slate-700 transition hover:bg-blue-50 hover:text-blue-700"
           >
-            Create Link
+            Analytics
           </Link>
         </nav>
       </div>

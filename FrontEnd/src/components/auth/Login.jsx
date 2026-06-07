@@ -62,17 +62,9 @@ function Login() {
           <FormInput id="password" name="password" label="Password" type="password" placeholder="Enter your password" icon={LockKeyhole} value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
 
           <div className="flex items-center justify-between gap-3 text-sm text-[#434655]">
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                className="h-4 w-4 rounded border-[#c3c6d7] text-[#2563eb] focus:ring-[#b4c5ff]"
-              />
-              <span>Remember me</span>
-            </label>
+           
 
-            <a href="#" className="font-semibold text-[#004ac6] hover:text-[#2563eb]">
-              Forgot password?
-            </a>
+           
           </div>
 
           <button disabled={loading} type="submit" className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-[#2563eb] px-4 py-3 font-semibold text-white shadow-sm shadow-blue-200/70 transition hover:bg-[#004ac6] hover:shadow-md disabled:opacity-60">

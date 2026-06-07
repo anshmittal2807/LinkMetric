@@ -1,4 +1,5 @@
 import { BarChart3, Check, QrCode, ShieldCheck, Sparkles, Target } from 'lucide-react'
+import analyticsPreview from '../../assets/ChatGPT Image Jun 7, 2026, 09_54_50 PM.png'
 
 const featureCards = [
   {
@@ -40,11 +41,11 @@ function FeatureSection() {
                 </p>
               </div>
 
-              <div className="overflow-hidden rounded-2xl border border-[#c3c6d7] bg-white p-3 shadow-sm">
+              <div className="overflow-hidden rounded-2xl border border-[#c3c6d7] bg-white p-3 shadow-sm lg:w-md">
                 <img
                   alt="Dashboard analytics preview"
-                  className="h-full w-full rounded-2xl object-cover grayscale-[0.4] transition duration-500 group-hover:grayscale-0"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuANXMkFx_wwzfLdS850OZxd29HSvXjNmJduCShuRRfHSW-1mobR2o7kHwCAc1ws_20OvAUDUEqfT5XYxOII6xZ8EVe4YlCXnParfhaI6yQs7E93bgd0ZepoZo4ylTE_q5fwpVZCQuQQoQPE7n7HpQeLfnWvk58e8Xlt6HOOLoVhVcZaWbPRzwAyl2lqxcWcIZCO8nHUDPY953qPDlFDnJQPVgn3rx4I_IXwMscUQkRCEUGyxe4-zMKASqAawusyMgYVNaAT0O9Alqgq"
+                  className="aspect-16/10 w-full rounded-2xl object-fit grayscale-[0.4] transition duration-500 group-hover:grayscale-0"
+                  src={analyticsPreview}
                 />
               </div>
             </div>
@@ -71,9 +72,7 @@ function FeatureSection() {
                   Bridge physical and digital touchpoints. Generate custom QR codes for every link and update them
                   anytime without reprinting.
                 </p>
-                <button className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#004ac6] transition hover:gap-3">
-                  Learn more <span aria-hidden="true">→</span>
-                </button>
+              
               </div>
 
               <div className="flex h-48 w-48 items-center justify-center rounded-[28px] border border-[#c3c6d7] bg-[#f8f9ff] text-[#0b1c30] shadow-sm">
