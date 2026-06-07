@@ -1,19 +1,18 @@
-// DashBoardPage.jsx
-import React from 'react'
 import LinkInfo from '../components/dashboard/LinkInfo'
 import DashBoardHeader from '../components/dashboard/DashBoardHeader'
 import DashboardSideBar from '../components/dashboard/DashBoardSideBar'
-import { useEffect , useContext } from 'react'
+import { useEffect , useContext, useState } from 'react'
 import{OrbitProgress} from 'react-loading-indicators'
 import{motion} from 'framer-motion'
 import AllLinkContext from '../context/AllLinkContext'
+import { sortRecentlyCreatedFirst } from '../services/sortingService'
 
 import{getUserLinks} from '../services/linkService'
 // DashBoardPage.jsx
 function DashBoardPage() {
   const {allLinks, setAllLinks , searchText , setSearchText} = useContext(AllLinkContext);
-  const[loading,  setLoading] = React.useState(false);
-  const[filteredLinks , setFilteredLinks] = React.useState([]);
+  const[loading,  setLoading] = useState(false);
+  const[filteredLinks , setFilteredLinks] = useState([]);
 
   useEffect(() => {
     const fetchLinks = async () => {
@@ -24,7 +23,8 @@ function DashBoardPage() {
         if (data?.success) {
           setAllLinks(data.data);
           console.log('Fetched user links:', data.data);
-          setFilteredLinks(data.data);
+          const sortedLinks = sortRecentlyCreatedFirst(data.data);
+          setFilteredLinks(sortedLinks);
         } else {
           setAllLinks([]);
           setFilteredLinks([]);
@@ -41,15 +41,20 @@ function DashBoardPage() {
   }
     , []);
 
-    useEffect(() =>{
+  useEffect(() =>{
 
       if(searchText.trim() === ''){
         setFilteredLinks(allLinks);
       }
 
       else {
-        const filtered = allLinks.filter((l) => l.originalLink.toLowerCase().trim().includes(searchText.toLowerCase()));
-        setFilteredLinks(filtered);
+        const normalizedSearchText = String(searchText).trim().toLowerCase(); 
+        const filteredOriginalLinks = allLinks.filter((link) =>
+          String(link?.orignalLink ?? '').toLowerCase().trim().includes(normalizedSearchText) ||           String(link?.shortLink ?? '').toLowerCase().trim().includes(normalizedSearchText)
+
+        );
+               
+        setFilteredLinks(filteredOriginalLinks);
       }
 
     } ,[searchText , allLinks])
@@ -103,9 +108,9 @@ function DashBoardPage() {
           <div 
           className="flex flex-col gap-3 mt-4">
             {
-              filteredLinks.map((link) => (
+              filteredLinks.map((link , index) => (
                 console.log('Rendering LinkInfo for link:', link.host),
-                <LinkInfo key={link._id} originalLink={link.originalLink} shortLink={link.shortLink} totalClicks={link.totalClicks} date={link.dateTime.substring(0, 10)} hostname={link.host} />
+                <LinkInfo key={link.linkId} originalLink={link.orignalLink} shortLink={link.shortLink} totalClicks={link.totalClicks} date={link.dateTime.substring(0, 10)} linkId={link.linkId} hostname={link.host} />
               ))
             }
 

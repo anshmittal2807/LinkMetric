@@ -1,5 +1,6 @@
 package com.LinkMetric.LinkMetric.service;
 
+import com.LinkMetric.LinkMetric.Dtos.request.CustomAliasReq;
 import com.LinkMetric.LinkMetric.Dtos.request.SaveLink;
 import com.LinkMetric.LinkMetric.Dtos.response.LinkDto;
 import com.LinkMetric.LinkMetric.Exception.LinkNotFoundException;
@@ -107,6 +108,56 @@ public class LinkService {
 
         responseMap.put("success", true);
         responseMap.put("message", "Link deleted successfully");
+
+        return responseMap;
+    }
+
+
+    public Map<String, Object> saveCustomLink(CustomAliasReq linkReq, Authentication authentication) {
+
+        Map<String, Object> responseMap = new HashMap<>();
+
+        String userName = authentication.getName();
+
+        Optional<Link> linkOptional = linkRepository.findById(linkReq.getLinkId());
+
+        if (linkOptional.isEmpty()) {
+            responseMap.put("success", false);
+            responseMap.put("message", "Link not found");
+            return responseMap;
+        }
+
+        Link link = linkOptional.get();
+
+        if (!link.getOwner().getUserName().equals(userName)) {
+            responseMap.put("success", false);
+            responseMap.put("message", "You are not authorized to edit this link");
+            return responseMap;
+        }
+        Map<String , Object> allLinks = fetchAllLinks(authentication);
+
+        if(link.getHash().equals(linkReq.getHash())){
+            responseMap.put("success", true);
+            responseMap.put("message", "Link updated successfully");
+            responseMap.put("data" , allLinks.get("data"));
+
+            return responseMap;
+        }
+
+        boolean exist = linkRepository.existsByHash(linkReq.getHash());
+
+        if(exist){
+            responseMap.put("success", false);
+            responseMap.put("message", "This Custom Alias aldready exists");
+            return responseMap;
+        }
+
+        link.setHash(linkReq.getHash());
+        linkRepository.save(link);
+
+        responseMap.put("success", true);
+        responseMap.put("message", "Link updated successfully");
+        responseMap.put("data" , allLinks.get("data"));
 
         return responseMap;
     }

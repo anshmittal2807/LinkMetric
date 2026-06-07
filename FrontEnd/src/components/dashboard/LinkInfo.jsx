@@ -1,8 +1,25 @@
 import CopyButton from "../landing/CopyButton";
-import{Pencil} from 'lucide-react';
-const LinkInfo = ({originalLink , shortLink ,totalClicks , date , hostname}) => {
+import{Pencil , Trash2} from 'lucide-react';
+import {deleteLink} from '../../services/linkService';
+import {useContext} from 'react';
+import AllLinkContext from '../../context/AllLinkContext';
 
-const text = "https://www.google.com/search?q=react+context+api&rlz=1C1GCEU_enIN832IN832&oq=react+context+api&aqs=chrome..69i57j0i512l9.1225j0j7&sourceid=chrome&ie=UTF-8";
+const LinkInfo = ({originalLink , shortLink ,totalClicks , date , hostname , linkId }) => {
+
+  const{allLinks , setAllLinks} = useContext(AllLinkContext);
+    const deleteCurrentLink = async () => {
+
+        try{
+          const data = await deleteLink(linkId);
+          console.log('Link deleted successfully:', data);
+          const newLinks =  [...allLinks].filter(link => link.linkId !== linkId);
+          setAllLinks(newLinks);
+        } catch(err){
+          console.log('Error deleting link:', err);
+        }
+
+    }
+
   return (
     <article className="relative m-0 w-full rounded-2xl border border-white/80 bg-white p-4 shadow-[0_10px_30px_rgba(15,23,42,0.06)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(15,23,42,0.1)] sm:p-5">
       <div className="flex flex-col gap-4 sm:gap-5">
@@ -18,23 +35,30 @@ const text = "https://www.google.com/search?q=react+context+api&rlz=1C1GCEU_enIN
               </div>
             </div>
           </div>
+        <div className="flex shrink-0 items-center gap-2">
 
           <button className="absolute right-4 top-4 rounded-xl p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 sm:static sm:ml-auto sm:shrink-0" aria-label="Edit link">
             <Pencil className="h-4 w-4" />
           </button>
+          
+
+            <button onClick ={deleteCurrentLink} className="absolute right-14 top-4 rounded-xl p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 sm:static sm:ml-auto sm:shrink-0" aria-label="Edit link">
+            <Trash2 className="h-4 w-4 text-red-600" />
+          </button>
+        </div>
           
         </div>
 
         <div className="flex justify-between gap-3 rounded-2xl bg-blue-700  px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
           <p className="min-w-0 truncate text-sm font-semibold text-white sm:text-base relative top-1.5 sm:top-0">{shortLink}</p>
           <div className="shrink-0">
-            <CopyButton buttonClassName="rounded-xl bg-blue-600 hover:bg-blue-500 text-white relative bottom-0.5" iconClassName="text-white" />
+            <CopyButton textToCopy = {shortLink} buttonClassName="rounded-xl bg-blue-600 hover:bg-blue-500 text-white relative bottom-0.5" iconClassName="text-white" />
           </div>
         </div>
 
         <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p className='min-w-0 flex-1 wrap-break-word text-sm leading-6 text-slate-600'>
-            {originalLink}
+            {originalLink.length > 30 ? `${originalLink.substring(0, 30)}...` : originalLink}
           </p>
 
           <div className="flex shrink-0 items-center gap-3 sm:justify-end">

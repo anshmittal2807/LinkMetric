@@ -14,7 +14,7 @@ const DashboardSideBar = () => {
 
         <nav className="space-y-2 text-sm font-medium">
           <Link
-            to='/dashboard'
+            to='/'
             className="flex items-center gap-3 rounded-xl px-3 py-3 text-slate-700 transition hover:bg-blue-50 hover:text-blue-700"
           >
             Home

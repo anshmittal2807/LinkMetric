@@ -1,5 +1,6 @@
 package com.LinkMetric.LinkMetric.controller;
 
+import com.LinkMetric.LinkMetric.Dtos.request.CustomAliasReq;
 import com.LinkMetric.LinkMetric.Dtos.request.SaveLink;
 import com.LinkMetric.LinkMetric.service.LinkService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -47,6 +48,12 @@ public class LinkController {
     public ResponseEntity<Map<String , Object>> deleteLink ( @PathVariable Integer linkId , Authentication authentication) {
         System.out.println("delete endpoint hit");
         return new ResponseEntity<>(linkService.deleteLink(linkId , authentication), HttpStatus.OK);
+    }
+
+    @PatchMapping("/link/update/customAlias")
+    public ResponseEntity<Map<String , Object>> saveCustomAlias (@RequestBody CustomAliasReq customAliasReq, Authentication authentication) {
+        System.out.println("custom alias endpoint hit");
+        return new ResponseEntity<>(linkService.saveCustomLink(customAliasReq , authentication), HttpStatus.OK);
     }
 
     }

@@ -47,3 +47,22 @@ export const getUserLinks = async () => {
 
   return data;
 };
+
+
+export const deleteLink = async (linkId) => {
+    try {
+      console.log(`${import.meta.env.VITE_BACKEND_URL}/link/delete/${linkId}`)
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/link/delete/${linkId}`, {
+            method: 'DELETE',
+            credentials: 'include',
+        });
+        const data = await res.json();
+        if (!data.success) {
+            throw new Error(data?.message || 'Failed to delete link');
+        }
+        return data;
+    } catch (err) {
+        console.log('Error deleting link:', err);
+        throw err;
+    }
+};

@@ -1,16 +1,20 @@
 import {Link} from 'react-router-dom';
 import {useContext, useState} from 'react';
 import AllLinkContext from '../../context/AllLinkContext';
+import { sortOldestCreatedFirst } from '../../services/sortingService';
 
 const DashBoardHeader  = () => {
 
     const[searchTerm, setSearchTerm] = useState('');
     const {allLinks , setAllLinks , searchText , setSearchText} = useContext(AllLinkContext); 
 
-    const filterLinks= (term) => {
-        const filtered = allLinks.filter((l) => l.originalLink.toLowerCase().includes(term.toLowerCase()));
-        setFilteredLinks(filtered);
+
+    const sortLinks = (links) => {
+        console.log('Sorting links:', links);
+        const sortedLinks = sortOldestCreatedFirst(links);
+        setAllLinks(sortedLinks);
     }
+
 
     return (
         <nav className='w-full flex flex-col gap-6 lg:gap-8'>
@@ -37,11 +41,11 @@ const DashBoardHeader  = () => {
                 </div>
 
                 <div className='flex flex-wrap gap-3'>
-                    <button className='flex items-center gap-2 rounded-lg px-3 py-2 bg-white shadow-sm whitespace-nowrap'>
+                    <button onClick={() => sortLinks(allLinks)} className='flex items-center gap-2 rounded-lg px-3 py-2 bg-white shadow-sm whitespace-nowrap'>
                         <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5 text-gray-600' viewBox='0 0 20 20' fill='currentColor'>
                             <path d='M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zM4 9h12v5H4V9z' />
                         </svg>
-                        <span>Filter by created date</span>
+                        <span >Created oldest first</span>
                     </button>
                 </div>
             </div>
