@@ -50,9 +50,10 @@ public class LinkController {
         return new ResponseEntity<>(linkService.deleteLink(linkId , authentication), HttpStatus.OK);
     }
 
-    @PatchMapping("/link/update/customAlias")
+    @PatchMapping("/link/update")
     public ResponseEntity<Map<String , Object>> saveCustomAlias (@RequestBody CustomAliasReq customAliasReq, Authentication authentication) {
         System.out.println("custom alias endpoint hit");
+
         return new ResponseEntity<>(linkService.saveCustomLink(customAliasReq , authentication), HttpStatus.OK);
     }
 

@@ -66,3 +66,30 @@ export const deleteLink = async (linkId) => {
         throw err;
     }
 };
+
+export const updateLinkAlias = async (linkId, newAlias) => {
+
+    console.log('Updating link alias:', { linkId, newAlias });
+        try {
+                const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/link/update`, {
+                    method: 'PATCH',
+                    credentials:'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        "hash": newAlias,
+                        "linkId": linkId
+                    })
+                });
+                const data = await res.json();
+                if (!data.success) {
+                    throw new Error(data?.message || 'Failed to update link alias');
+                }
+
+                return data;
+        } catch (err) {
+            console.log('Error updating link alias:', err);
+            throw err;
+        }
+}
+
+

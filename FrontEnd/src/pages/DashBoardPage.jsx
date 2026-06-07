@@ -6,6 +6,9 @@ import{OrbitProgress} from 'react-loading-indicators'
 import{motion} from 'framer-motion'
 import AllLinkContext from '../context/AllLinkContext'
 import { sortRecentlyCreatedFirst } from '../services/sortingService'
+import EditLinkInfo from '../components/dashboard/EditLinkInfo'
+import {AnimatePresence} from 'framer-motion'
+
 
 import{getUserLinks} from '../services/linkService'
 // DashBoardPage.jsx
@@ -13,6 +16,10 @@ function DashBoardPage() {
   const {allLinks, setAllLinks , searchText , setSearchText} = useContext(AllLinkContext);
   const[loading,  setLoading] = useState(false);
   const[filteredLinks , setFilteredLinks] = useState([]);
+  const[editLinkVisibility , setEditLinkVisibility] = useState(false);
+  const[linkToEdit , setLinkToEdit] = useState(null);
+  const[linkId , setLinkId] = useState(null);
+
 
   useEffect(() => {
     const fetchLinks = async () => {
@@ -71,7 +78,11 @@ function DashBoardPage() {
 
   return (
     <div className='flex h-screen w-full items-stretch overflow-hidden bg-slate-100 text-[#0b1c30]'>
-      
+     <AnimatePresence>
+       {editLinkVisibility && <EditLinkInfo setVisibility={setEditLinkVisibility} originalLink={linkToEdit?.originalLink} shortLink={linkToEdit?.shortLink} linkId={linkId} />}
+     </AnimatePresence>
+
+        
       <motion.div
       initial = {{y:-100 ,
         opacity:0}}
@@ -110,7 +121,7 @@ function DashBoardPage() {
             {
               filteredLinks.map((link , index) => (
                 console.log('Rendering LinkInfo for link:', link.host),
-                <LinkInfo key={link.linkId} originalLink={link.orignalLink} shortLink={link.shortLink} totalClicks={link.totalClicks} date={link.dateTime.substring(0, 10)} linkId={link.linkId} hostname={link.host} />
+                <LinkInfo key={link.linkId} originalLink={link.orignalLink} shortLink={link.shortLink} totalClicks={link.totalClicks} date={link.dateTime.substring(0, 10)} linkId={link.linkId} hostname={link.host} setLinkToEdit={setLinkToEdit} setEditLinkVisibility={setEditLinkVisibility} setLinkId={setLinkId} />
               ))
             }
 

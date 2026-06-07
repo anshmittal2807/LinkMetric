@@ -4,7 +4,7 @@ import {deleteLink} from '../../services/linkService';
 import {useContext} from 'react';
 import AllLinkContext from '../../context/AllLinkContext';
 
-const LinkInfo = ({originalLink , shortLink ,totalClicks , date , hostname , linkId }) => {
+const LinkInfo = ({originalLink , shortLink ,totalClicks , date , hostname , linkId , setEditLinkVisibility , setLinkToEdit , setLinkId }) => {
 
   const{allLinks , setAllLinks} = useContext(AllLinkContext);
     const deleteCurrentLink = async () => {
@@ -18,6 +18,12 @@ const LinkInfo = ({originalLink , shortLink ,totalClicks , date , hostname , lin
           console.log('Error deleting link:', err);
         }
 
+    }
+
+    const handleOnClick = () => {
+      setEditLinkVisibility(true);
+      setLinkToEdit({ originalLink, shortLink });
+      setLinkId(linkId);
     }
 
   return (
@@ -38,7 +44,7 @@ const LinkInfo = ({originalLink , shortLink ,totalClicks , date , hostname , lin
         <div className="flex shrink-0 items-center gap-2">
 
           <button className="absolute right-4 top-4 rounded-xl p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 sm:static sm:ml-auto sm:shrink-0" aria-label="Edit link">
-            <Pencil className="h-4 w-4" />
+            <Pencil className="h-4 w-4" onClick = {handleOnClick} />
           </button>
           
 
