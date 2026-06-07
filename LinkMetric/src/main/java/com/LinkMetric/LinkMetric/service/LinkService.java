@@ -134,12 +134,10 @@ public class LinkService {
             responseMap.put("message", "You are not authorized to edit this link");
             return responseMap;
         }
-        Map<String , Object> allLinks = fetchAllLinks(authentication);
 
         if(link.getHash().equals(linkReq.getHash())){
             responseMap.put("success", true);
             responseMap.put("message", "Link updated successfully");
-            responseMap.put("data" , allLinks.get("data"));
 
             return responseMap;
         }
@@ -157,7 +155,6 @@ public class LinkService {
 
         responseMap.put("success", true);
         responseMap.put("message", "Link updated successfully");
-        responseMap.put("data" , allLinks.get("data"));
 
         return responseMap;
     }

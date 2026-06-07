@@ -51,7 +51,7 @@ public class LinkController {
     }
 
     @PatchMapping("/link/update")
-    public ResponseEntity<Map<String , Object>> saveCustomAlias (@RequestBody CustomAliasReq customAliasReq, Authentication authentication) {
+    public ResponseEntity<Map<String , Object>> saveCustomAlias (@RequestBody @Valid  CustomAliasReq customAliasReq, Authentication authentication) {
         System.out.println("custom alias endpoint hit");
 
         return new ResponseEntity<>(linkService.saveCustomLink(customAliasReq , authentication), HttpStatus.OK);
