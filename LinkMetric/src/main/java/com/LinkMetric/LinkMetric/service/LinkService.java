@@ -72,13 +72,13 @@ public class LinkService {
     }
 
 
-    public String redirectUser(String hashId , HttpServletRequest request) throws URISyntaxException {
+    public String redirectUser(String hashId , HttpServletRequest request ) throws URISyntaxException {
         Link link = linkRepository.findByHash(hashId);
         if (link == null) {
             throw new LinkNotFoundException("Link not found ");
         }
 
-        logService.addLog(request , link);
+        logService.addLog(request , link , link.getOwner());
         link.setTotalClicks(link.getTotalClicks() + 1);
         linkRepository.save(link);
         return link.getLink();

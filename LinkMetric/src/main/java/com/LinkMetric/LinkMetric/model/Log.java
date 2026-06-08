@@ -18,12 +18,17 @@ public class Log {
 
     private String ip;
 
+    @ManyToOne
+    private User user;
+
+
     private  String referer;
 
-    public Log(Link link, String ip ,String refer){
+    public Log(Link link, String ip ,String refer ,User user){
         this.ip =  ip;
         this.link = link;
         this.clickTimeAndDate = LocalDateTime.now();
+        this.user = user;
         this.referer = refer;
     }
 
