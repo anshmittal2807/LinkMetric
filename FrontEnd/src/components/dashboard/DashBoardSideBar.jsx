@@ -2,9 +2,9 @@
 import { Link } from 'react-router-dom';
 import BrandMark from '../BrandMark';
 
-const DashboardSideBar = () => {
+const DashboardSideBar = ({bgColor}) => {
   return (
-    <aside className="flex h-full w-64 flex-col border-r border-white/70 bg-white/80 px-5 py-6 shadow-[4px_0_24px_rgba(15,23,42,0.06)] backdrop-blur-sm">
+    <aside className={`flex h-full w-64 flex-col border-r border-white/70 bg-${bgColor} px-5 py-6 shadow-[4px_0_24px_rgba(15,23,42,0.06)] backdrop-blur-sm`}>
       <div>
         <div className="mb-8">
         <BrandMark /> <br/>

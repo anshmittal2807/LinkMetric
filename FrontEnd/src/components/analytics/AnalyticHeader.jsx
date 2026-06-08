@@ -4,7 +4,7 @@ const AnalyticHeader = () => {
 
     console.log(window)
   return (
-    <div className="analytic-header p-3 flex  flex-col  gap-3 ">
+    <div className="analytic-header p-3 flex w-full  flex-col  gap-3 ">
         <div className="flex items-center gap-2 " >
             <BrandMark/>
         </div>
