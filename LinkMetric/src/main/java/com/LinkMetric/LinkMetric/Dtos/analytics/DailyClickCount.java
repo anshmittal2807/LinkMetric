@@ -1,4 +1,11 @@
 package com.LinkMetric.LinkMetric.Dtos.analytics;
 
-public class DailyClickCount {
+public interface DailyClickCount {
+
+
+
+    public String getDay() ;
+
+    public Long getClicks() ;
+
 }

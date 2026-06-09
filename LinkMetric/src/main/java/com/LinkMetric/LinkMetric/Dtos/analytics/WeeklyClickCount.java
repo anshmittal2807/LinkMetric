@@ -1,4 +1,8 @@
 package com.LinkMetric.LinkMetric.Dtos.analytics;
 
-public class WeeklyClickCount {
+public interface WeeklyClickCount {
+    public String getWeek() ;
+
+    public Long getClicks() ;
+
 }
