@@ -9,7 +9,7 @@ import UserContext from '../context/UserContext'
 
 function AnalyticsPage() {
 const{user} = useContext(UserContext);
-console.log('User from context in AnalyticsPage:', user);
+console.log('User from context in AnalyticsPage:', user.totalClicks );
 
   return (
     <>
@@ -21,7 +21,7 @@ console.log('User from context in AnalyticsPage:', user);
 
     <div className ='bg-[#F9F5FF] flex-1 px-6 w-full flex flex-col '>
   <AnalyticHeader className="bg-[#FCF8FF]" />
-  <AnalyticsBoxes totalClicks={user?.totalLinks}/>
+  <AnalyticsBoxes totalLinks={user.totalLinks}  totalClicks={user.totalClicks}/>
   <AnalyticChart />
     </div>
 

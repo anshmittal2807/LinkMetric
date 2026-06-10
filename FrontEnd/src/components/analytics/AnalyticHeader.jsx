@@ -10,7 +10,7 @@ const AnalyticHeader = () => {
         </div>
         <div>
 
-        <h1 className = "font-bold text-2xl">Dashboard Overview</h1>
+        <h1 className = "font-bold text-2xl">Analytics Overview</h1>
         <h3>Real time performance tracking for your links</h3>
         </div>
     </div>

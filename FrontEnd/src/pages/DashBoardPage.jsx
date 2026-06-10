@@ -9,6 +9,7 @@ import AllLinkContext from '../context/AllLinkContext'
 import { sortRecentlyCreatedFirst } from '../services/sortingService'
 import EditLinkInfo from '../components/dashboard/EditLinkInfo'
 import {AnimatePresence} from 'framer-motion'
+import UserContext from '../context/UserContext'
 
 
 import{getUserLinks} from '../services/linkService'
@@ -20,10 +21,12 @@ function DashBoardPage() {
   const[editLinkVisibility , setEditLinkVisibility] = useState(false);
   const[linkToEdit , setLinkToEdit] = useState(null);
   const[linkId , setLinkId] = useState(null);
+  const {user} = useContext(UserContext);
 
 
   useEffect(() => {
     const fetchLinks = async () => {
+      console.log('Fetching user links for user:', user);
       try {
         setLoading(true);
       

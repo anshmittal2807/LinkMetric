@@ -23,7 +23,10 @@ const DashBoardHeader  = () => {
                     <h1 className='text-3xl font-bold'>Link Metric</h1>
                     <p className='text-sm text-gray-500'>Manage and analyze your short links</p>
                 </div>
-                <Link to='/' className='w-fit px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md shadow-sm'>Create link</Link>
+                <div className='flex flex-col sm:flex-row gap-3 w-full sm:w-auto'>
+                    <Link to='/analytics' className='md:hidden w-full sm:w-fit px-4 py-2 border border-blue-600 text-blue-700 hover:bg-blue-50 rounded-md shadow-sm text-center'>View analytics</Link>
+                    <Link to='/' className='w-full sm:w-fit px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md shadow-sm text-center'>Create link</Link>
+                </div>
             </div>
 
             <div className='w-full flex flex-col xl:flex-row xl:items-center gap-3'>
