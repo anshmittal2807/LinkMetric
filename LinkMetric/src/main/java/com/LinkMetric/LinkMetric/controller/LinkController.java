@@ -34,8 +34,8 @@ public class LinkController {
     }
 
     @GetMapping("/{hashId}")
-    public ResponseEntity<Void> redirectUser(@PathVariable String hashId , HttpServletRequest request  ) throws URISyntaxException {
-        String url = linkService.redirectUser(hashId , request );
+    public ResponseEntity<Void> redirectUser(@PathVariable String hashId , HttpServletRequest request , Authentication authentication  ) throws URISyntaxException {
+        String url = linkService.redirectUser(hashId , request , authentication );
        return ResponseEntity
                 .status(HttpStatus.FOUND)
                 .location(

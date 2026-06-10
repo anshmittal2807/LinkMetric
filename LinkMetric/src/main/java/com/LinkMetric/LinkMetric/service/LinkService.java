@@ -75,11 +75,15 @@ public class LinkService {
     }
 
 
-    public String redirectUser(String hashId , HttpServletRequest request ) throws URISyntaxException {
+    public String redirectUser(String hashId , HttpServletRequest request ,  Authentication authentication) throws URISyntaxException {
         Link link = linkRepository.findByHash(hashId);
         if (link == null) {
             throw new LinkNotFoundException("Link not found ");
         }
+        String userName = authentication.getName();
+        Optional<User> userOpt = userRepository.findByUserName(userName);
+        User user = userOpt.get();
+        user.setTotalClicks(user.getTotalClicks() + 1);
 
         logService.addLog(request , link , link.getOwner());
         link.setTotalClicks(link.getTotalClicks() + 1);

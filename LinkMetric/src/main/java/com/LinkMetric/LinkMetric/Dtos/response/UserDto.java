@@ -10,6 +10,16 @@ public class UserDto {
 
     private Integer totalLinks;
 
+    private  Integer totalClicks = 0 ;
+
+    public void setTotalClicks(Integer totalClicks) {
+        this.totalClicks = totalClicks;
+    }
+
+    public Integer getTotalClicks() {
+        return totalClicks;
+    }
+
     public Integer getTotalLinks() {
         return totalLinks;
     }
@@ -43,10 +53,11 @@ public class UserDto {
         this.userName = userName;
     }
 
-    public UserDto(String name, String email, String userName , Integer totalLinks) {
+    public UserDto(String name, String email, String userName , Integer totalLinks , Integer totalClicks) {
         this.name = name;
         this.email = email;
         this.userName = userName;
         this.totalLinks = totalLinks;
+        this.totalClicks = totalClicks;
     }
 }

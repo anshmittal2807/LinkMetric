@@ -11,6 +11,15 @@ public class User {
     private Integer userId;
 
     private  Integer totalLinks = 0 ;
+    private  Integer totalClicks = 0 ;
+
+    public void setTotalClicks(Integer totalClicks) {
+        this.totalClicks = totalClicks;
+    }
+
+    public Integer getTotalClicks() {
+        return totalClicks;
+    }
 
     public Integer getTotalLinks() {
         return totalLinks;

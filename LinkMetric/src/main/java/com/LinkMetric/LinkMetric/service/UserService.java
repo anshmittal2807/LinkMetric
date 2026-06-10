@@ -38,7 +38,7 @@ public class UserService {
 
             Map<String , Object> response = new HashMap<>();
             response.put("success" , true);
-            response.put("userData" , new UserDto(savedUser.getName() , savedUser.getEmail() , savedUser.getUserName() , user.getTotalLinks()));
+            response.put("userData" , new UserDto(savedUser.getName() , savedUser.getEmail() , savedUser.getUserName() , user.getTotalLinks() , user.getTotalClicks()));
             return  response;
 
     }
