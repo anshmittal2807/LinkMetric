@@ -1,4 +1,5 @@
 import LinkInfo from '../components/dashboard/LinkInfo'
+import { Link } from 'react-router-dom'
 import DashBoardHeader from '../components/dashboard/DashBoardHeader'
 import DashboardSideBar from '../components/dashboard/DashBoardSideBar'
 import { useEffect , useContext, useState } from 'react'
@@ -116,16 +117,32 @@ function DashBoardPage() {
         <div className='mx-auto w-full max-w-6xl'>
           <DashBoardHeader />
           
-          <div 
-          className="flex flex-col gap-3 mt-4">
-            {
-              filteredLinks.map((link , index) => (
-                console.log('Rendering LinkInfo for link:', link.host),
-                <LinkInfo key={link.linkId} originalLink={link.orignalLink} shortLink={link.shortLink} totalClicks={link.totalClicks} date={link.dateTime.substring(0, 10)} linkId={link.linkId} hostname={link.host} setLinkToEdit={setLinkToEdit} setEditLinkVisibility={setEditLinkVisibility} setLinkId={setLinkId} />
-              ))
-            }
-
-          </div>
+          {/* Links list or empty state */}
+          {filteredLinks.length === 0 ? (
+            <div className="flex items-center justify-center w-full py-24">
+              <div className="text-center bg-white/60 backdrop-blur-sm rounded-lg p-8 md:p-12 max-w-xl mx-4 shadow-md">
+                <div className="flex items-center justify-center mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 12h3l3 8 4-16 3 8h4" />
+                  </svg>
+                </div>
+                <p className="text-gray-800 text-xl md:text-2xl font-semibold">No links yet</p>
+                <p className="text-sm text-gray-500 mt-2">Shorten your first link to start tracking clicks and performance.</p>
+                <div className="mt-6 flex items-center justify-center gap-3">
+                  <Link to="/" className="px-4 py-2 bg-blue-600 text-white rounded-md shadow-sm">Create Link</Link>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-3 mt-4">
+              {
+                filteredLinks.map((link , index) => (
+                  console.log('Rendering LinkInfo for link:', link.host),
+                  <LinkInfo key={link.linkId} originalLink={link.orignalLink} shortLink={link.shortLink} totalClicks={link.totalClicks} date={link.dateTime.substring(0, 10)} linkId={link.linkId} hostname={link.host} setLinkToEdit={setLinkToEdit} setEditLinkVisibility={setEditLinkVisibility} setLinkId={setLinkId} />
+                ))
+              }
+            </div>
+          )}
         </div>
             </motion.div>
       </div>

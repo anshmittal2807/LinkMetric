@@ -37,7 +37,10 @@ function Login() {
       // `login` already logs the token; you can also access it here
       console.log('Login response:', data)
       setUser(data.user) // Update user context with logged-in user info
-      window.location.href = '/' // Redirect to dashboard after successful login
+    
+      
+        window.location.href = '/' // Redirect to dashboard after successful login
+    
     } catch (err) {
       setError(err.message || 'Login failed')
     } finally {

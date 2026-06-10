@@ -8,6 +8,16 @@ public class UserDto {
 
     private String userName;
 
+    private Integer totalLinks;
+
+    public Integer getTotalLinks() {
+        return totalLinks;
+    }
+
+    public void setTotalLinks(Integer totalLinks) {
+        this.totalLinks = totalLinks;
+    }
+
 
     public String getName() {
         return name;
@@ -33,9 +43,10 @@ public class UserDto {
         this.userName = userName;
     }
 
-    public UserDto(String name, String email, String userName) {
+    public UserDto(String name, String email, String userName , Integer totalLinks) {
         this.name = name;
         this.email = email;
         this.userName = userName;
+        this.totalLinks = totalLinks;
     }
 }

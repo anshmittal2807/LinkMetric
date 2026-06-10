@@ -3,8 +3,14 @@ import DashboardSideBar from '../components/dashboard/DashBoardSideBar'
 import AnalyticHeader from '../components/analytics/AnalyticHeader'
 import AnalyticsBoxes from '../components/analytics/AnalyticsBoxes'
 import AnalyticChart from '../components/analytics/AnalyticChart'
+import { useContext } from 'react'
+import UserContext from '../context/UserContext'
+
 
 function AnalyticsPage() {
+const{user} = useContext(UserContext);
+console.log('User from context in AnalyticsPage:', user);
+
   return (
     <>
     <div className="flex min-h-screen w-screen ">
@@ -14,8 +20,8 @@ function AnalyticsPage() {
       </div>
 
     <div className ='bg-[#F9F5FF] flex-1 px-6 w-full flex flex-col '>
-  <AnalyticHeader className="bg-[#FCF8FF]"/>
-  <AnalyticsBoxes/>
+  <AnalyticHeader className="bg-[#FCF8FF]" />
+  <AnalyticsBoxes totalClicks={user?.totalLinks}/>
   <AnalyticChart />
     </div>
 

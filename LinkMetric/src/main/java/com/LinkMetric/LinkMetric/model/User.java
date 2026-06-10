@@ -10,6 +10,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
+    private  Integer totalLinks = 0 ;
+
+    public Integer getTotalLinks() {
+        return totalLinks;
+    }
+
+    public void setTotalLinks(Integer totalLinks) {
+        this.totalLinks = totalLinks;
+    }
+
 
     private String name;
 

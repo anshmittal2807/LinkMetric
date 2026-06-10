@@ -7,6 +7,8 @@ import Error from '../components/error/Error'
 import AllLinkContextProvider from '../context/AllLinkContextProvider'
 import ProtectedRoute from './ProtectedRoute'
 import AnalyticsPage from '../pages/AnalyticsPage'
+import UserContext from '../context/UserContext'
+import UserContextProvider from '../context/UserContextProvider'
 
 
 const router  = createBrowserRouter([
@@ -42,7 +44,17 @@ const router  = createBrowserRouter([
   {
     path : '/analytics',
     element: 
+    <ProtectedRoute>
+
+    <AllLinkContextProvider>
+    <UserContext.provider>
       <AnalyticsPage />
+      </UserContext.provider>
+    </AllLinkContextProvider>
+    </ProtectedRoute>,
+
+    errorElement: <Error />
+
   
   } 
 ])

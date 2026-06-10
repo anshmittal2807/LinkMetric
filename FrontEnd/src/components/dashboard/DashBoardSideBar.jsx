@@ -26,6 +26,12 @@ const DashboardSideBar = ({bgColor}) => {
           >
             Analytics
           </Link>
+            <Link
+            to='/dashboard'
+            className="flex font-semibold items-center gap-3 rounded-xl px-3 py-3 text-slate-700 transition hover:bg-blue-50 hover:text-blue-700"
+          >
+            Dashboard
+          </Link>
         </nav>
       </div>
 

@@ -54,7 +54,7 @@ public class AuthService {
         cookie.setPath("/");
         Optional<User> userOptional = userRepository.findByUserName(username);
         User user = userOptional.get();
-        response.put("user" , new UserDto(user.getName() , user.getEmail() , username));
+        response.put("user" , new UserDto(user.getName() , user.getEmail() , username , user.getTotalLinks()));
         res.addCookie(cookie);
 
 
@@ -81,7 +81,7 @@ public class AuthService {
         map.put("success" , true);
         Optional<User> userOptional = userRepository.findByUserName(authentication.getName());
         User user = userOptional.get();
-        map.put("user" , new UserDto(user.getName() , user.getEmail() , user.getUserName()));
+        map.put("user" , new UserDto(user.getName() , user.getEmail() , user.getUserName() , user.getTotalLinks()));
         return  map;
     }
 

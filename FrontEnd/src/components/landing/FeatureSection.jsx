@@ -1,5 +1,4 @@
 import { BarChart3, Check, QrCode, ShieldCheck, Sparkles, Target } from 'lucide-react'
-import analyticsPreview from '../../assets/ChatGPT Image Jun 7, 2026, 09_54_50 PM.png'
 
 const featureCards = [
   {
@@ -45,7 +44,7 @@ function FeatureSection() {
                 <img
                   alt="Dashboard analytics preview"
                   className="aspect-16/10 w-full rounded-2xl object-fit grayscale-[0.4] transition duration-500 group-hover:grayscale-0"
-                  src={analyticsPreview}
+                  src={"src/assets/dashboardImg.png"}
                 />
               </div>
             </div>

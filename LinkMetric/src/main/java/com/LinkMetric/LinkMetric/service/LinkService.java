@@ -43,6 +43,9 @@ public class LinkService {
 
         User user = byUserName.get();
 
+        user.setTotalLinks(user.getTotalLinks() + 1);
+
+
         String hash = UUID.randomUUID().toString().substring(0,8);
 
         while (linkRepository.existsByHash(hash)){
