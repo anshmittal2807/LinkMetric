@@ -33,10 +33,7 @@ public class AnalyticsService {
                     logRepository.getDailyClicks(linkId)
             );
 
-            response.put(
-                    "weeklyClicks",
-                    logRepository.getWeeklyClicks(linkId)
-            );
+
 
             response.put(
                     "monthlyClicks",

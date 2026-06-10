@@ -29,4 +29,5 @@ public class AnalyticsController {
                 analyticsService.getAnalytics(linkId)
         );
     }
+
 }
