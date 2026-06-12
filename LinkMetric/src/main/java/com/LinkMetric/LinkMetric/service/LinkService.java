@@ -3,6 +3,7 @@ package com.LinkMetric.LinkMetric.service;
 import com.LinkMetric.LinkMetric.Dtos.request.CustomAliasReq;
 import com.LinkMetric.LinkMetric.Dtos.request.SaveLink;
 import com.LinkMetric.LinkMetric.Dtos.response.LinkDto;
+import com.LinkMetric.LinkMetric.Dtos.response.UserDto;
 import com.LinkMetric.LinkMetric.Exception.LinkNotFoundException;
 import com.LinkMetric.LinkMetric.model.Link;
 import com.LinkMetric.LinkMetric.model.User;
@@ -56,8 +57,12 @@ public class LinkService {
 
         Link savedLink = linkRepository.save(new Link(user , hash , link.getLink() , host));
 
+        User save = userRepository.save(user);
+
         response.put("success" , true);
         response.put("message" , "Link Shortened Successfully");
+        response.put("user" , new UserDto(save.getEmail() , save.getEmail() , save.getUserName() , save.getTotalLinks(), save.getTotalClicks()));
+
         response.put("linkDetails" , new LinkDto(savedLink.getLink() , savedLink.getLinkId() ,
                 savedLink.getDateTime() ,  savedLink.getHash(), savedLink.getTotalClicks() , savedLink.getHost()));
         return  response;
@@ -114,9 +119,10 @@ public class LinkService {
         }
         linkRepository.delete(link);
         link.getOwner().setTotalLinks(link.getOwner().getTotalLinks() -1);
-        userRepository.save(link.getOwner());
+        User save = userRepository.save(link.getOwner());
 
         responseMap.put("success", true);
+        responseMap.put("user" , new UserDto(save.getEmail() , save.getEmail() , save.getUserName() , save.getTotalClicks(), save.getTotalLinks()));
         responseMap.put("message", "Link deleted successfully");
 
         return responseMap;
