@@ -3,12 +3,11 @@ package com.LinkMetric.LinkMetric.controller;
 import com.LinkMetric.LinkMetric.Dtos.analytics.DailyClickCount;
 import com.LinkMetric.LinkMetric.service.AnalyticsService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,12 +20,12 @@ public class AnalyticsController {
         this.analyticsService = analyticsService;
     }
 
-    @GetMapping("/{linkId}/daily")
+    @GetMapping("/")
     public ResponseEntity<Map<String,Object>> getDailyAnalytics(
-            @PathVariable Long linkId
+             Authentication authentication
     ) {
         return ResponseEntity.ok(
-                analyticsService.getAnalytics(linkId)
+                analyticsService.getAnalytics( authentication)
         );
     }
 

@@ -28,7 +28,7 @@ public interface LogRepository extends JpaRepository<Log, Long> {
         ORDER BY day
         LIMIT 7
         """, nativeQuery = true)
-    List<DailyClickCount> getDailyClicksByUser(Long userId);
+    List<DailyClickCount> getDailyClicksByUser(Integer userId);
 
 
 
@@ -44,7 +44,7 @@ public interface LogRepository extends JpaRepository<Log, Long> {
         ORDER BY month
         LIMIT 7
         """, nativeQuery = true)
-    List<MonthlyClickCount> getMonthlyClicksByUser(Long userId);
+    List<MonthlyClickCount> getMonthlyClicksByUser(Integer userId);
 
 
 
@@ -62,6 +62,6 @@ public interface LogRepository extends JpaRepository<Log, Long> {
         ORDER BY clicks DESC
         LIMIT 3
         """, nativeQuery = true)
-    List<TopReferrer> getTopReferrersByUser(Long userId);
+    List<TopReferrer> getTopReferrersByUser(Integer userId);
 
 }

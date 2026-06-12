@@ -90,6 +90,7 @@ public class LinkService {
         linkRepository.save(link);
         return link.getLink();
     }
+
     public Map<String, Object> deleteLink(Integer linkId, Authentication authentication) {
 
         Map<String, Object> responseMap = new HashMap<>();
@@ -112,6 +113,8 @@ public class LinkService {
             return responseMap;
         }
         linkRepository.delete(link);
+        link.getOwner().setTotalLinks(link.getOwner().getTotalLinks() -1);
+        userRepository.save(link.getOwner());
 
         responseMap.put("success", true);
         responseMap.put("message", "Link deleted successfully");

@@ -1,13 +1,14 @@
 package com.LinkMetric.LinkMetric.service;
 
-import com.LinkMetric.LinkMetric.Dtos.analytics.DailyClickCount;
+import com.LinkMetric.LinkMetric.model.User;
 import com.LinkMetric.LinkMetric.repositories.LogRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.LinkMetric.LinkMetric.repositories.UserRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class AnalyticsService {
@@ -15,32 +16,47 @@ public class AnalyticsService {
 
     private final LogRepository logRepository;
 
-    public AnalyticsService(LogRepository logRepository) {
+    private final UserRepository userRepository;
+
+    public AnalyticsService(LogRepository logRepository, UserRepository userRepository) {
         this.logRepository = logRepository;
+        this.userRepository = userRepository;
     }
 
 
-    public Map<String, Object> getAnalytics(Long linkId) {
+    public Map<String, Object> getAnalytics(Authentication authentication) {
 
         Map<String, Object> response = new HashMap<>();
+        String userName = authentication.getName();
+        Optional<User> userOptional = userRepository.findByUserName(userName);
+        User user = userOptional.get();
+        Integer userId = user.getUserId();
 
         try {
 
             response.put("success", true);
 
+
             response.put(
                     "dailyClicks",
-                    logRepository.getDailyClicks(linkId)
+                    logRepository.getDailyClicksByUser(userId)
             );
-
 
 
             response.put(
                     "monthlyClicks",
-                    logRepository.getMonthlyClicks(linkId)
+                    logRepository.getMonthlyClicksByUser(userId)
             );
 
+
+            response.put(
+                    "topReferrers",
+                    logRepository.getTopReferrersByUser(userId)
+            );
+
+
             return response;
+
 
         } catch (Exception e) {
 
