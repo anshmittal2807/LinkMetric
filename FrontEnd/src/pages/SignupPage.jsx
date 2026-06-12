@@ -2,7 +2,7 @@ import Signup from '../components/auth/Signup'
 import SignupHeader from '../components/auth/SignupHeader'
 import { Activity } from "lucide-react";
 import { BadgeCheck } from "lucide-react";
-import signupImage from '../assets/signupPageimg.png'
+import signupImage from '../assets/signupPageImg.png'
 import { motion } from 'motion/react'
 import {handleRegister} from '../services/handleRegister'
 
