@@ -2,6 +2,7 @@ package com.LinkMetric.LinkMetric.repositories;
 
 import com.LinkMetric.LinkMetric.Dtos.analytics.DailyClickCount;
 import com.LinkMetric.LinkMetric.Dtos.analytics.MonthlyClickCount;
+import com.LinkMetric.LinkMetric.Dtos.analytics.TopReferrer;
 import com.LinkMetric.LinkMetric.model.Link;
 import com.LinkMetric.LinkMetric.model.Log;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,37 +10,58 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface LogRepository extends JpaRepository<Log , Long> {
+public interface LogRepository extends JpaRepository<Log, Long> {
 
 
-    public void deleteByLink(Link link);
+    void deleteByLink(Link link);
 
 
     @Query(value = """
         SELECT
-            DATE(click_time_and_date) as day,
+            DATE(l.click_time_and_date) as day,
             COUNT(*) as clicks
-        FROM log
-        WHERE link_link_id = :linkId
-        GROUP BY DATE(click_time_and_date)
+        FROM log l
+        JOIN link li 
+            ON l.link_link_id = li.link_id
+        WHERE li.user_id = :userId
+        GROUP BY DATE(l.click_time_and_date)
         ORDER BY day
         LIMIT 7
         """, nativeQuery = true)
-    List<DailyClickCount> getDailyClicks(Long linkId);
+    List<DailyClickCount> getDailyClicksByUser(Long userId);
+
 
 
     @Query(value = """
         SELECT
-            DATE_FORMAT(click_time_and_date,'%Y-%m') as month,
+            DATE_FORMAT(l.click_time_and_date,'%Y-%m') as month,
             COUNT(*) as clicks
-        FROM log
-        WHERE link_link_id = :linkId
-        GROUP BY DATE_FORMAT(click_time_and_date,'%Y-%m')
+        FROM log l
+        JOIN link li 
+            ON l.link_link_id = li.link_id
+        WHERE li.user_id = :userId
+        GROUP BY DATE_FORMAT(l.click_time_and_date,'%Y-%m')
         ORDER BY month
         LIMIT 7
         """, nativeQuery = true)
-    List<MonthlyClickCount> getMonthlyClicks(Long linkId);
+    List<MonthlyClickCount> getMonthlyClicksByUser(Long userId);
 
 
+
+    @Query(value = """
+        SELECT
+            l.referer as referer,
+            COUNT(*) as clicks
+        FROM log l
+        JOIN link li 
+            ON l.link_link_id = li.link_id
+        WHERE li.user_id = :userId
+          AND l.referer IS NOT NULL
+          AND l.referer <> ''
+        GROUP BY l.referer
+        ORDER BY clicks DESC
+        LIMIT 3
+        """, nativeQuery = true)
+    List<TopReferrer> getTopReferrersByUser(Long userId);
 
 }
