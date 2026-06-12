@@ -1,10 +1,10 @@
 import { ArrowRight, Link2, Sparkles } from 'lucide-react'
 import {shortenLink} from '../../services/linkService'
-import {useState} from 'react'
+import {useState , useContext} from 'react'
 import CopyButton from './CopyButton'
 import {validateURL} from '../../services/regexValidator'
 import { AnimatePresence, motion } from 'framer-motion'
-
+import UserContext from '../../context/UserContext'
 
 
 function HeroSection() {
@@ -12,7 +12,7 @@ function HeroSection() {
   const[err , setErr] = useState(false);
   const[errMsg, setErrMsg] = useState('')
   const[shortenedLink, setShortenedLink] = useState(null)
-
+  const {setUser} = useContext(UserContext);
 
 
   const handleShorten =  async () => {
@@ -25,6 +25,7 @@ function HeroSection() {
           const response = await shortenLink(linkValue);
           setShortenedLink(response.linkDetails.shortLink);
           setLinkValue('');
+          setUser(response.user);
           setTimeout(()=>{
               setShortenedLink(null);
           } , 1000*60) // Clear shortened link after 1 minute

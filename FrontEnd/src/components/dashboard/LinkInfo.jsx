@@ -2,16 +2,20 @@ import CopyButton from "../landing/CopyButton";
 import{Pencil , Trash2} from 'lucide-react';
 import {deleteLink} from '../../services/linkService';
 import {useContext} from 'react';
+import UserContext from "../../context/UserContext";
+
 import AllLinkContext from '../../context/AllLinkContext';
 
 const LinkInfo = ({originalLink , shortLink ,totalClicks , date , hostname , linkId , setEditLinkVisibility , setLinkToEdit , setLinkId }) => {
 
   const{allLinks , setAllLinks} = useContext(AllLinkContext);
+  const{setUser} = useContext(UserContext);
     const deleteCurrentLink = async () => {
 
         try{
           const data = await deleteLink(linkId);
           console.log('Link deleted successfully:', data);
+          setUser(data.user);
           const newLinks =  [...allLinks].filter(link => link.linkId !== linkId);
           setAllLinks(newLinks);
         } catch(err){

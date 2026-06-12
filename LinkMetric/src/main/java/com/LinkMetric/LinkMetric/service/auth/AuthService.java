@@ -64,8 +64,9 @@ public class AuthService {
     Map<String  , Object> map = new HashMap<>();
         Cookie cookie = new Cookie("token", null);
         cookie.setHttpOnly(true);
-        cookie.setSecure(false); // true in production
+        cookie.setSecure(true); // true in production
         cookie.setPath("/");
+        cookie.setHttpOnly(true);
         cookie.setMaxAge(0); // delete immediately
         response.addCookie(cookie);
         map.put("success" , true);
