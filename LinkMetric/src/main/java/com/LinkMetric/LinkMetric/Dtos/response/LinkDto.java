@@ -1,5 +1,7 @@
 package com.LinkMetric.LinkMetric.Dtos.response;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import java.time.LocalDateTime;
 
 public class LinkDto {
@@ -10,6 +12,9 @@ public class LinkDto {
     private Integer linkId;
     private Long totalClicks;
     private String host;
+
+    @Value("${app.base-url}")
+    private String baseUrl;
 
     public Long getTotalClicks() {
         return totalClicks;
@@ -27,7 +32,7 @@ public class LinkDto {
         this.originalLink = orignalLink;
         this.linkId = linkId;
         this.dateTime = localDateTime;
-        this.shortLink = "localhost:8080/" + shortLink;
+        this.shortLink = baseUrl + shortLink;
         this.totalClicks = totalClicks;
         this.host = host;
     }
