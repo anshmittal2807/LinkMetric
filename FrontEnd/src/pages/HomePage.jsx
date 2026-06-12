@@ -8,6 +8,7 @@ import { useEffect , useState } from "react";
 import { useContext } from "react";
 import { checkLoginStatus } from "../services/authService";
 import UserContext from "../context/UserContext";
+import LoadingScreen from "../components/shimmer/LoadingScreen";
 
 function HomePage() {
   const [loading , setLoading] = useState(true);
@@ -40,14 +41,7 @@ function HomePage() {
   }, []);
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f8f9ff] text-[#0b1c30]">
-        <div className="flex flex-col items-center gap-4 rounded-3xl border border-white/70 bg-white px-8 py-7 shadow-[0_16px_40px_rgba(15,23,42,0.08)]">
-          <div className="h-12 w-12 animate-spin rounded-full border-4 border-slate-200 border-t-blue-600" />
-          <p className="text-sm font-medium text-slate-600">Loading dashboard...</p>
-        </div>
-      </div>
-    );
+    return <LoadingScreen title="Loading your dashboard" subtitle="Fetching your session and personalized content." />;
   }
 
   return (

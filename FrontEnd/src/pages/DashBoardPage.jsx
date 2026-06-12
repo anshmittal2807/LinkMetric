@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom'
 import DashBoardHeader from '../components/dashboard/DashBoardHeader'
 import DashboardSideBar from '../components/dashboard/DashBoardSideBar'
 import { useEffect , useContext, useState } from 'react'
-import{OrbitProgress} from 'react-loading-indicators'
 import{motion} from 'framer-motion'
 import AllLinkContext from '../context/AllLinkContext'
 import { sortRecentlyCreatedFirst } from '../services/sortingService'
 import EditLinkInfo from '../components/dashboard/EditLinkInfo'
 import {AnimatePresence} from 'framer-motion'
 import UserContext from '../context/UserContext'
+import LoadingScreen from '../components/shimmer/LoadingScreen'
 
 
 import{getUserLinks} from '../services/linkService'
@@ -73,11 +73,7 @@ function DashBoardPage() {
 
 
   if (loading) {
-    return (
-      <div className='flex h-screen w-full items-center justify-center bg-slate-100 text-[#0b1c30]'>
-        <OrbitProgress variant="disc" dense color="blue" size="large" text="" />
-      </div>
-    );
+    return <LoadingScreen variant="dashboard" />;
   }
 
   return (

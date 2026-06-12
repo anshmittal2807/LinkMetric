@@ -1,13 +1,13 @@
 import { Navigate } from "react-router-dom"
 import { useContext } from "react"
 import UserContext from "../context/UserContext"
-import { useEffect , useState } from "react"
+import LoadingScreen from "../components/shimmer/LoadingScreen"
 
 const ProtectedRoute = ({children}) => {
-        const { user , setUser , loading , setLoading} = useContext(UserContext);
+        const { user , loading } = useContext(UserContext);
 
     if(loading){
-        return <div>Loading...</div>
+        return <LoadingScreen title="Checking access" subtitle="Loading your secure workspace." />
     }
     if(!user){
         return <Navigate to="/login" replace />
