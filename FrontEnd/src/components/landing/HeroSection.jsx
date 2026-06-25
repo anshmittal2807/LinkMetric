@@ -13,7 +13,6 @@ function HeroSection() {
   const[err , setErr] = useState(false);
   const[errMsg, setErrMsg] = useState('')
   const[shortenedLink, setShortenedLink] = useState(null)
-  const {setUser} = useContext(UserContext);
   const[shortening , setShortening] = useState(false);
 
 const handleShorten = async () => {
