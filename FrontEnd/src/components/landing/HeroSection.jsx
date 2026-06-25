@@ -14,15 +14,15 @@ function HeroSection() {
   const[errMsg, setErrMsg] = useState('')
   const[shortenedLink, setShortenedLink] = useState(null)
   const[shortening , setShortening] = useState(false);
-
 const handleShorten = async () => {
   try {
-    setShortening(true);
 
-    // ❌ NEW: auth check FIRST
+    // ❌ AUTH CHECK FIRST (important fix)
     if (!user) {
       throw new Error("Please login first to use this service");
     }
+
+    setShortening(true);
 
     linkValue.trim() === '' && (() => { throw new Error('URL can not be blank') })();
     !validateURL(linkValue) && (() => { throw new Error('Please enter a valid URL') })();
@@ -35,7 +35,6 @@ const handleShorten = async () => {
 
     setShortenedLink(response.linkDetails.shortLink);
     setLinkValue('');
-    setShortening(false);
 
     setUser(response.user);
 
@@ -44,10 +43,12 @@ const handleShorten = async () => {
     }, 1000 * 60);
 
   } catch (err) {
-    setShortening(false);
     setErr(true);
     setErrMsg(err.message || 'Failed to shorten link');
     console.error('Error shortening link:', err);
+
+  } finally {
+    setShortening(false);
   }
 };
 
