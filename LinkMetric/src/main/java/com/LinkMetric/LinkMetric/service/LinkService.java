@@ -13,6 +13,7 @@ import com.LinkMetric.LinkMetric.repositories.UserRepository;
 import com.LinkMetric.LinkMetric.util.LinkUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,10 @@ import java.util.*;
 public class LinkService {
 
     @Autowired
+    private LinkUtils linkUtils;
+
+
+    @Autowired
     private LinkRepository linkRepository;
 
     @Autowired
@@ -31,6 +36,9 @@ public class LinkService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Value("${BACKENDURL}")
+    private String baseUrl;
 
     @Autowired
     private LogRepository logRepository;
@@ -64,7 +72,7 @@ public class LinkService {
         response.put("user" , new UserDto(save.getEmail() , save.getEmail() , save.getUserName() , save.getTotalLinks(), save.getTotalClicks()));
 
         response.put("linkDetails" , new LinkDto(savedLink.getLink() , savedLink.getLinkId() ,
-                savedLink.getDateTime() ,  savedLink.getHash(), savedLink.getTotalClicks() , savedLink.getHost()));
+                savedLink.getDateTime() ,  savedLink.getHash(), savedLink.getTotalClicks() , savedLink.getHost() , baseUrl));
         return  response;
     }
 
@@ -75,7 +83,7 @@ public class LinkService {
         User user = userOpt.get();
         List<Link> allLinks = linkRepository.findAllByOwner(user);
         responseMap.put("success" , true);
-        responseMap.put("data" , LinkUtils.createLinkDtoList(allLinks));
+        responseMap.put("data" , linkUtils.createLinkDtoList(allLinks));
         return responseMap;
     }
 

@@ -13,8 +13,7 @@ public class LinkDto {
     private Long totalClicks;
     private String host;
 
-    @Value("${app.base-url}")
-    private String baseUrl;
+
 
     public Long getTotalClicks() {
         return totalClicks;
@@ -28,7 +27,10 @@ public class LinkDto {
         return originalLink;
     }
 
-    public LinkDto(String orignalLink, Integer linkId, LocalDateTime localDateTime, String shortLink, Long totalClicks , String host) {
+    public LinkDto(String orignalLink, Integer linkId, LocalDateTime localDateTime, String shortLink, Long totalClicks , String host , String baseUrl) {
+        System.out.print(baseUrl
+        );
+
         this.originalLink = orignalLink;
         this.linkId = linkId;
         this.dateTime = localDateTime;
