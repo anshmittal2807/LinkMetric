@@ -14,12 +14,14 @@ function Signup() {
     password : '',
     confirmPassword : ''
   });
+  const[registering , setRegistering] = useState(false)
 
   const[error , setError] = useState(false)
   const[errorMessage , setErrorMessage] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     const validation = validateFormData(formData.name, formData.userName, formData.email, formData.password);
     if (!validation.isValid) {
       setError(true);
@@ -35,16 +37,19 @@ function Signup() {
 
     try {
       const { confirmPassword, ...payload } = formData;
+      setRegistering(true);
       const data  = await handleRegister(payload);
       console.log('Registration successful:', data);
       setError(false);
             window.location.href = '/login' // Redirect to dashboard after successful login
 
       setErrorMessage('');
+      setRegistering(false);
     } catch (error) {
       setError(true);
       console.error('Error during registration:', error);
       setErrorMessage(error.message || 'An error occurred during registration. Please try again.');
+      setRegistering(false);
     }
   }
 
@@ -69,7 +74,9 @@ function Signup() {
           <FormInput id="confirmPassword" name="confirmPassword" label="Confirm Password" type="password" placeholder="Confirm Password" icon={LockKeyhole} value={formData.confirmPassword} onChange={(e) => { setFormData({ ...formData, confirmPassword: e.target.value }) }} />
           
           <button type="submit" className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-[#2563eb] px-4 py-3 font-semibold text-white shadow-sm shadow-blue-200/70 transition hover:bg-[#004ac6] hover:shadow-md">
-            <span>Register Now</span>
+            <span>
+              {registering ? 'Registering...' : 'Sign Up'}
+            </span>
             <ArrowRight className="h-4 w-4" />
           </button>
 
