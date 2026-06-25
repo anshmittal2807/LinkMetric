@@ -9,37 +9,48 @@ import UserContext from '../../context/UserContext'
 
 function HeroSection() {
   const[linkValue, setLinkValue] = useState('')
+  const { user, setUser } = useContext(UserContext);
   const[err , setErr] = useState(false);
   const[errMsg, setErrMsg] = useState('')
   const[shortenedLink, setShortenedLink] = useState(null)
   const {setUser} = useContext(UserContext);
   const[shortening , setShortening] = useState(false);
 
+const handleShorten = async () => {
+  try {
+    setShortening(true);
 
-  const handleShorten =  async () => {
-        try {
-          setShortening(true);
-          linkValue.trim() === '' && (() => {throw new Error('URL can not be blank')})();
-          !validateURL(linkValue) && (() => {throw new Error('Please enter a valid URL')})();
-          setShortenedLink(null);
-          setErr(false);
-          setErrMsg('');
-          const response = await shortenLink(linkValue);
-          setShortenedLink(response.linkDetails.shortLink);
-          setLinkValue('');
-          setShortening(false);
-          setUser(response.user);
-          setTimeout(()=>{
-              setShortenedLink(null);
-          } , 1000*60) // Clear shortened link after 1 minute
-          
-        } catch (err) {
-          setShortening(false);
-          setErr(true);
-          setErrMsg(err.message || 'Failed to shorten link');
-          console.error('Error shortening link:', err);
-        }
+    // ❌ NEW: auth check FIRST
+    if (!user) {
+      throw new Error("Please login first to use this service");
+    }
+
+    linkValue.trim() === '' && (() => { throw new Error('URL can not be blank') })();
+    !validateURL(linkValue) && (() => { throw new Error('Please enter a valid URL') })();
+
+    setShortenedLink(null);
+    setErr(false);
+    setErrMsg('');
+
+    const response = await shortenLink(linkValue);
+
+    setShortenedLink(response.linkDetails.shortLink);
+    setLinkValue('');
+    setShortening(false);
+
+    setUser(response.user);
+
+    setTimeout(() => {
+      setShortenedLink(null);
+    }, 1000 * 60);
+
+  } catch (err) {
+    setShortening(false);
+    setErr(true);
+    setErrMsg(err.message || 'Failed to shorten link');
+    console.error('Error shortening link:', err);
   }
+};
 
 return (
     <section className="relative mx-auto flex max-w-7xl flex-col items-center px-6 pb-12 pt-14 text-center lg:px-8 lg:pb-16 lg:pt-20">
@@ -77,8 +88,11 @@ return (
             />
           </div>
 
-          <button onClick = {handleShorten}className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#004ac6] px-7 py-4 text-base font-semibold text-white shadow-[0_18px_40px_-24px_rgba(0,74,198,0.9)] transition hover:bg-[#003ea8] active:scale-[0.99]">
-            {!shortening ? 'Shorten ' : 'Shortening...'}
+<button
+  onClick={handleShorten}
+  disabled={!user || shortening}
+  className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#004ac6] px-7 py-4 text-base font-semibold text-white shadow-[0_18px_40px_-24px_rgba(0,74,198,0.9)] transition hover:bg-[#003ea8] active:scale-[0.99] disabled:opacity-50"
+>            {!shortening ? 'Shorten ' : 'Shortening...'}
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>
