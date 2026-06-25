@@ -131,7 +131,7 @@ Backend:
 
 Database:
 
-* MySQL hosted database
+* Railway
 
 ---
 
