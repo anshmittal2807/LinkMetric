@@ -49,9 +49,10 @@ public class AuthService {
         System.out.println("Authentication done");
         Cookie cookie = new Cookie("token" ,jwtService.generateToken(username));
         cookie.setHttpOnly(true);
-        cookie.setSecure(false);// HTTPS only
+        cookie.setSecure(true);// HTTPS only
         cookie.setMaxAge(60*60*24*7);
         cookie.setPath("/");
+
         Optional<User> userOptional = userRepository.findByUserName(username);
         User user = userOptional.get();
         response.put("user" , new UserDto(user.getName() , user.getEmail() , username , user.getTotalLinks() , user.getTotalClicks()));

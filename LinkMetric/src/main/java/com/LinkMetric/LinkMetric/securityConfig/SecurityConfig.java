@@ -24,6 +24,7 @@ import java.util.List;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
+
     @Value("${frontend.url}")
     private String frontendUrl;
 
@@ -85,7 +86,7 @@ public class SecurityConfig {
         );
 
         configuration.setAllowedMethods(
-                List.of("GET", "POST", "PUT", "DELETE", "OPTIONS ","PATCH")
+                List.of("GET", "POST", "PUT", "DELETE", "OPTIONS","PATCH")
         );
 
         configuration.setAllowedHeaders(
