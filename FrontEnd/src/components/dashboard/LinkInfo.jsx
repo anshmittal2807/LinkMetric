@@ -3,7 +3,7 @@ import{Pencil , Trash2} from 'lucide-react';
 import {deleteLink} from '../../services/linkService';
 import {useContext , useState} from 'react';
 import UserContext from "../../context/UserContext";
-import DeleteShimmer from '../components/shimmer/DeleteShimmer';
+import DeleteShimmer from '../shimmer/DeleteShimmer';
 import AllLinkContext from '../../context/AllLinkContext';
 
 const LinkInfo = ({originalLink , shortLink ,totalClicks , date , hostname , linkId , setEditLinkVisibility , setLinkToEdit , setLinkId }) => {
