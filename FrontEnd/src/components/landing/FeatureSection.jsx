@@ -1,5 +1,5 @@
 import { BarChart3, Check, QrCode, ShieldCheck, Sparkles, Target } from 'lucide-react'
-
+import insights from"../../assets/insights.png"
 const featureCards = [
   {
     icon: Sparkles,
@@ -44,7 +44,7 @@ function FeatureSection() {
                 <img
                   alt="Dashboard analytics preview"
                   className="aspect-16/10 w-full rounded-2xl object-fit grayscale-[0.4] transition duration-500 group-hover:grayscale-0"
-                  src={"src\\assets\\insights.png"}
+                  src={insights}
                 />
               </div>
             </div>
