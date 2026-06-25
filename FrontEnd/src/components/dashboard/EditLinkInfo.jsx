@@ -7,44 +7,64 @@ import { useContext } from "react";
 
 
 const EditLinkInfo = ({ setVisibility, originalLink = "", shortLink = "" , linkId}) => {
-  const initialAlias = shortLink ? shortLink.substring(15) : "";
+
+  const getAlias = (url) => {
+    if (!url) return "";
+    try {
+      const parsed = new URL(url);
+      return parsed.pathname.replace("/", "");
+    } catch (e) {
+      return "";
+    }
+  };
+
+  const getPrefix = (url) => {
+    if (!url) return "";
+    try {
+      const parsed = new URL(url);
+      return `${parsed.origin}/`;
+    } catch (e) {
+      return "";
+    }
+  };
+
+  const initialAlias = getAlias(shortLink);
   const [alias, setAlias] = useState(initialAlias);
-  const{setAllLinks} = useContext(AllLinkContext);
+  const { setAllLinks } = useContext(AllLinkContext);
   const [error, setError] = useState(null);
 
+  const handleSaveChanges = async (e) => {
+    e.preventDefault();
+    try {
+      setError(null);
+      const res = await updateLinkAlias(linkId, alias);
+      if (!res.success) {
+        throw new Error(res?.message || 'Failed to update link alias');
+      }
+      console.log('Link alias updated successfully:', res.data);
 
-    const handleSaveChanges = async (e) => {
-        e.preventDefault();
-        try {
-          setError(null);
-            const res = await updateLinkAlias(linkId, alias);
-            if(!res.success){
-                throw new Error(res?.message || 'Failed to update link alias');
-            }
-            console.log('Link alias updated successfully:', res.data);
+      const updatedLinks = await getUserLinks();
+      if (updatedLinks?.success) {
+        setAllLinks(updatedLinks.data);
+      }
+      setVisibility(false);
 
-        const updatedLinks = await getUserLinks();
-        if (updatedLinks?.success) {
-          setAllLinks(updatedLinks.data);
-        }
-            setVisibility(false);   
-
-        } catch (err) {
-          setError(err.message || 'An error occurred while saving changes');
-            console.error('Error saving changes:', err);
-        } 
+    } catch (err) {
+      setError(err.message || 'An error occurred while saving changes');
+      console.error('Error saving changes:', err);
     }
-
+  }
 
   useEffect(() => {
     setAlias(initialAlias);
   }, [shortLink]);
 
 
-  const prefix = shortLink
-  ? shortLink.substring(0,15)
-  : "";
-  const truncatedOriginal = originalLink?.length > 140 ? `${originalLink.substring(0, 137)}...` : originalLink;
+  const prefix = getPrefix(shortLink);
+
+  const truncatedOriginal = originalLink?.length > 140
+    ? `${originalLink.substring(0, 137)}...`
+    : originalLink;
 
   return (
     <motion.div
@@ -77,7 +97,10 @@ const EditLinkInfo = ({ setVisibility, originalLink = "", shortLink = "" , linkI
         <form onSubmit={handleSaveChanges} className="px-6 py-5">
           <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Short Link</label>
           <div className="flex items-center gap-4">
-            <span className="text-sm font-medium text-slate-800 dark:text-slate-100">{prefix}</span>
+            <span className="text-sm font-medium text-slate-800 dark:text-slate-100">
+              {prefix}
+            </span>
+
             <input
               aria-label="custom alias"
               type="text"
