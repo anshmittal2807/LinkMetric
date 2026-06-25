@@ -7,7 +7,7 @@ import { useContext } from "react";
 
 
 const EditLinkInfo = ({ setVisibility, originalLink = "", shortLink = "" , linkId}) => {
-
+const [Saving, setSaving] = useState(false);
   const getAlias = (url) => {
     if (!url) return "";
     try {
@@ -37,6 +37,7 @@ const EditLinkInfo = ({ setVisibility, originalLink = "", shortLink = "" , linkI
     e.preventDefault();
     try {
       setError(null);
+      setSaving(true);
       const res = await updateLinkAlias(linkId, alias);
       if (!res.success) {
         throw new Error(res?.message || 'Failed to update link alias');
@@ -47,9 +48,11 @@ const EditLinkInfo = ({ setVisibility, originalLink = "", shortLink = "" , linkI
       if (updatedLinks?.success) {
         setAllLinks(updatedLinks.data);
       }
+      setSaving(false);
       setVisibility(false);
 
     } catch (err) {
+      setSaving(false);
       setError(err.message || 'An error occurred while saving changes');
       console.error('Error saving changes:', err);
     }
@@ -130,7 +133,7 @@ const EditLinkInfo = ({ setVisibility, originalLink = "", shortLink = "" , linkI
               type="submit"
               className="px-4 py-2 rounded-md bg-sky-600 text-white text-sm font-medium hover:bg-sky-700"
             >
-              Save Changes
+              {Saving? 'Saving...' : 'Save Changes'}
             </button>
           </div>
         </form>
