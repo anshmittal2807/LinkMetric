@@ -44,7 +44,7 @@ function FeatureSection() {
                 <img
                   alt="Dashboard analytics preview"
                   className="aspect-16/10 w-full rounded-2xl object-fit grayscale-[0.4] transition duration-500 group-hover:grayscale-0"
-                  src={"src/assets/dashboardImg.png"}
+                  src={"src\\assets\\insights.png"}
                 />
               </div>
             </div>
