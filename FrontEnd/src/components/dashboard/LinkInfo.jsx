@@ -1,34 +1,48 @@
 import CopyButton from "../landing/CopyButton";
 import{Pencil , Trash2} from 'lucide-react';
 import {deleteLink} from '../../services/linkService';
-import {useContext} from 'react';
+import {useContext , useState} from 'react';
 import UserContext from "../../context/UserContext";
-
+import DeleteShimmer from '../components/shimmer/DeleteShimmer';
 import AllLinkContext from '../../context/AllLinkContext';
 
 const LinkInfo = ({originalLink , shortLink ,totalClicks , date , hostname , linkId , setEditLinkVisibility , setLinkToEdit , setLinkId }) => {
 
   const{allLinks , setAllLinks} = useContext(AllLinkContext);
+  const [deleting, setDeleting] = useState(false);
   const{setUser} = useContext(UserContext);
-    const deleteCurrentLink = async () => {
+const deleteCurrentLink = async () => {
+  try {
+    setDeleting(true);
 
-        try{
-          const data = await deleteLink(linkId);
-          console.log('Link deleted successfully:', data);
-          setUser(data.user);
-          const newLinks =  [...allLinks].filter(link => link.linkId !== linkId);
-          setAllLinks(newLinks);
-        } catch(err){
-          console.log('Error deleting link:', err);
-        }
+    const data = await deleteLink(linkId);
+    console.log('Link deleted successfully:', data);
 
-    }
+    setUser(data.user);
+
+    const newLinks = [...allLinks].filter(link => link.linkId !== linkId);
+    setAllLinks(newLinks);
+
+  } catch (err) {
+    console.log('Error deleting link:', err);
+  } finally {
+    setDeleting(false);
+  }
+};
 
     const handleOnClick = () => {
       setEditLinkVisibility(true);
       setLinkToEdit({ originalLink, shortLink });
       setLinkId(linkId);
     }
+
+if (deleting) {
+  return (
+    <div className="w-full">
+      <DeleteShimmer />
+    </div>
+  );
+}
 
   return (
     <article className="relative m-0 w-full rounded-2xl border border-white/80 bg-white p-4 shadow-[0_10px_30px_rgba(15,23,42,0.06)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(15,23,42,0.1)] sm:p-5">
