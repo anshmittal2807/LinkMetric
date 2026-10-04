@@ -43,6 +43,7 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/index.html", "/assets/**", "/favicon.svg", "/icons.svg", "/login", "/signup", "/dashboard", "/analytics", "/error", "/hello").permitAll()
                         .requestMatchers("/auth/login", "/auth/signup" ,"/auth/checkAuth" ).permitAll()
                         .requestMatchers("/{hashId}").permitAll()
 

@@ -93,9 +93,7 @@ public class LinkService {
         if (link == null) {
             throw new LinkNotFoundException("Link not found ");
         }
-        String userName = authentication.getName();
-        Optional<User> userOpt = userRepository.findByUserName(userName);
-        User user = userOpt.get();
+        User user = link.getOwner();
         user.setTotalClicks(user.getTotalClicks() + 1);
 
         logService.addLog(request , link , link.getOwner());

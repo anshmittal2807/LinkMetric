@@ -33,7 +33,7 @@ public class LinkController {
         return new ResponseEntity<>(linkService.fetchAllLinks(authentication) , HttpStatus.OK);
     }
 
-    @GetMapping("/{hashId}")
+    @GetMapping("/{hashId:[a-zA-Z0-9_-]+}")
     public ResponseEntity<Void> redirectUser(@PathVariable String hashId , HttpServletRequest request , Authentication authentication  ) throws URISyntaxException {
         String url = linkService.redirectUser(hashId , request , authentication );
        return ResponseEntity
